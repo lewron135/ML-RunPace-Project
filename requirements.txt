@@ -1,0 +1,17 @@
+# ============================================================
+# RunPace — Flask Inference Dependencies (Production)
+#
+# This file is used by Vercel to install Python dependencies
+# for the api/index.py serverless function.
+# It contains ONLY what is needed for model inference at runtime.
+# Do NOT add training or EDA libraries here.
+#
+# Install: pip install -r requirements.txt
+# ============================================================
+
+flask==3.0.3
+flask-cors==4.0.1
+scikit-learn==1.6.1
+pandas==2.3.3
+numpy==2.0.2
+joblib==1.5.3

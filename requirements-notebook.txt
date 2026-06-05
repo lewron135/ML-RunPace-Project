@@ -1,0 +1,22 @@
+# ============================================================
+# RunPace — Notebook / Training Dependencies (Development)
+#
+# Used for EDA, model training, and ablation study in
+# notebooks/data_pipeline.ipynb.
+# Not required for the Flask API server.
+#
+# Install: pip install -r requirements-notebook.txt
+# ============================================================
+
+# Core ML (same versions as production to guarantee pkl compatibility)
+scikit-learn==1.6.1
+pandas==2.3.3
+numpy==2.0.2
+joblib==1.5.3
+
+# Visualisation
+matplotlib==3.9.4
+seaborn==0.13.2
+
+# Notebook runtime
+jupyter>=1.1.0

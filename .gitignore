@@ -1,0 +1,120 @@
+# ============================================================
+# RunPace — Monorepo .gitignore
+# Stack: Next.js 16 + Flask (Python) + Jupyter
+# ============================================================
+
+
+# ── Node / Next.js ────────────────────────────────────────────
+
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+.next/
+out/
+build/
+dist/
+coverage/
+
+# TypeScript incremental build artefacts (auto-regenerated)
+*.tsbuildinfo
+next-env.d.ts
+
+
+# ── Python ────────────────────────────────────────────────────
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+.env_py/
+Lib/
+Scripts/
+
+
+# ── Jupyter ───────────────────────────────────────────────────
+
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+
+# ── ML Model Binaries ─────────────────────────────────────────
+#
+# STRATEGY: Models in ./models/ (root) are committed because they
+# are small (< 10 MB each) and required for Vercel serverless
+# deployment. GitHub warns above 50 MB per file.
+#
+# If you retrain and the regressor grows above 50 MB, switch to
+# Git LFS:
+#   git lfs install
+#   git lfs track "models/*.pkl"
+#   git add .gitattributes
+#
+# notebooks/models/ holds retrained artefacts that can reach
+# 40+ MB and must NEVER be pushed to GitHub directly.
+
+notebooks/models/
+
+
+# ── Environment Variables ─────────────────────────────────────
+#
+# .env.example is the ONLY .env file that should be committed.
+# It contains no real secrets, only documented placeholders.
+
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+!.env.example
+
+
+# ── Logs ──────────────────────────────────────────────────────
+
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+
+# ── System / Editor ───────────────────────────────────────────
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.sublime-workspace
+
+
+# ── Secrets / Certificates ────────────────────────────────────
+
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+
+# ── Vercel ────────────────────────────────────────────────────
+
+.vercel
+feedback.csv

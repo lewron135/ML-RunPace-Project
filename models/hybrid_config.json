@@ -1,0 +1,9 @@
+{
+  "best_alpha": 0.05,
+  "gender_ratio_F": 1.1048990489091433,
+  "pace_base_seconds_per_km": {
+    "Advanced": 499.1,
+    "Beginner": 342.7,
+    "Intermediate": 327.3
+  }
+}
