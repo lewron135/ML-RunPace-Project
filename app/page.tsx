@@ -1704,19 +1704,32 @@ export default function RunPaceDashboard() {
           )}
 
           {/* ══ TAB 5: MODEL EVALUATION ═════════════════════════════════════ */}
-          {activeTab === 'evaluation' && (
+          {activeTab === 'evaluation' && (() => {
+            const clfAcc  = trainMetrics ? `${trainMetrics.classifier.accuracy}%`   : '99.24%';
+            const regMape = trainMetrics ? `${trainMetrics.regressor.mape}%`         : '11.52%';
+            const regR2   = trainMetrics ? `${trainMetrics.regressor.r2}`            : '0.9285';
+            const regMae  = trainMetrics ? `${Math.round(trainMetrics.regressor.mae_minutes * 60)}s` : '716.4s';
+            const clfLabel = trainMetrics ? trainMetrics.classifier.algo.toUpperCase() + ' Classifier' : 'RF Classifier';
+            const regLabel = trainMetrics ? trainMetrics.regressor.algo.toUpperCase() + ' Regressor + Hybrid' : 'RF Regressor + Hybrid';
+            const isLive  = !!trainMetrics;
+            return (
             <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-black text-white mb-1">Model Evaluation</h2>
-                <p className="text-xs text-slate-500">Interactive evaluation dashboard — real training outputs from data_pipeline.ipynb</p>
+              <div className="flex items-start justify-between">
+                <div>
+                  <h2 className="text-2xl font-black text-white mb-1">Model Evaluation</h2>
+                  <p className="text-xs text-slate-500">{isLive ? `Live metrics — ${clfLabel} · seed=${trainMetrics!.config.random_state} · test=${trainMetrics!.classifier.test_size}%` : 'Interactive evaluation dashboard — real training outputs from data_pipeline.ipynb'}</p>
+                </div>
+                {isLive && (
+                  <span className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg bg-teal-500/15 border border-teal-500/30 text-teal-400 flex-shrink-0">Live</span>
+                )}
               </div>
 
               {/* ── Sub-navigation ────────────────────────────────────────────── */}
               <div className="flex gap-2 flex-wrap">
                 {([
                   { id: 'clustering'  as const, label: 'K-Means Clustering',    color: 'bg-violet-500/15 border-violet-400/50 text-violet-300' },
-                  { id: 'classifier'  as const, label: 'RF Classifier',          color: 'bg-sky-500/15 border-sky-400/50 text-sky-300'          },
-                  { id: 'regressor'   as const, label: 'RF Regressor + Hybrid',  color: 'bg-teal-500/15 border-teal-400/50 text-teal-300'       },
+                  { id: 'classifier'  as const, label: clfLabel,    color: 'bg-sky-500/15 border-sky-400/50 text-sky-300'    },
+                  { id: 'regressor'   as const, label: regLabel,    color: 'bg-teal-500/15 border-teal-400/50 text-teal-300' },
                 ]).map(({ id, label, color }) => (
                   <button key={id} type="button"
                     onClick={() => { setEvalView(id); setHoveredInsight('Hover over any chart element to see a detailed analytical insight here.'); }}
@@ -1907,8 +1920,8 @@ export default function RunPaceDashboard() {
                     {/* Metric summary cards */}
                     <div className="grid grid-cols-4 gap-3">
                       {[
-                        { label: 'Hold-out Accuracy', value: '99.24%', color: 'text-teal-400',   border: 'border-teal-500/20',   bg: 'bg-teal-500/5'   },
-                        { label: 'CV Accuracy (5-Fold)', value: '98.82%', color: 'text-sky-400',    border: 'border-sky-500/20',    bg: 'bg-sky-500/5'    },
+                        { label: 'Hold-out Accuracy', value: clfAcc,    color: 'text-teal-400',   border: 'border-teal-500/20',   bg: 'bg-teal-500/5'   },
+                        { label: isLive ? 'Baseline CV (RF)' : 'CV Accuracy (5-Fold)', value: '98.82%', color: 'text-sky-400', border: 'border-sky-500/20', bg: 'bg-sky-500/5' },
                         { label: 'CV F1 Weighted',     value: '0.9882', color: 'text-violet-400', border: 'border-violet-500/20', bg: 'bg-violet-500/5' },
                         { label: 'CV Stability (±std)', value: '±0.16%', color: 'text-emerald-400',border: 'border-emerald-500/20',bg: 'bg-emerald-500/5'},
                       ].map(({ label, value, color, border, bg }) => (
@@ -2064,10 +2077,10 @@ export default function RunPaceDashboard() {
                     {/* Core metric cards */}
                     <div className="grid grid-cols-3 gap-4">
                       {[
-                        { label: 'MAPE',         value: '11.52%',  note: 'Mean Abs % Error',    color: 'text-amber-400', border: 'border-amber-500/20', bg: 'bg-amber-500/5',
-                          insight: 'MAPE of 11.52% means the hybrid model\'s duration estimate is within ~11.5% of actual race time on average. For a 4-hour marathon this is ±~28 minutes.' },
-                        { label: 'CV R² Score',  value: '0.9285',  note: '5-Fold Cross-Val',     color: 'text-teal-400',  border: 'border-teal-500/20',  bg: 'bg-teal-500/5',
-                          insight: 'CV R²=0.9285 (±0.0159) — the model explains 92.85% of variance in race duration across all 5 cross-validation folds. The tight ±0.0159 std shows no overfitting.' },
+                        { label: 'MAPE',         value: regMape,   note: 'Mean Abs % Error',    color: 'text-amber-400', border: 'border-amber-500/20', bg: 'bg-amber-500/5',
+                          insight: `MAPE of ${regMape} means the hybrid model's duration estimate is within ~${regMape} of actual race time on average.` },
+                        { label: isLive ? 'Baseline CV R²' : 'CV R² Score', value: regR2, note: isLive ? 'Hold-out (live)' : '5-Fold Cross-Val', color: 'text-teal-400', border: 'border-teal-500/20', bg: 'bg-teal-500/5',
+                          insight: `R²=${regR2} — the model explains ${(parseFloat(regR2)*100).toFixed(1)}% of variance in race duration.` },
                         { label: 'RMSE',         value: '1477.6s', note: '≈ 24.6 min',           color: 'text-sky-400',   border: 'border-sky-500/20',   bg: 'bg-sky-500/5',
                           insight: 'RMSE of 1477.6 seconds (≈24.6 min) — penalises large errors more than MAE. The gap between MAE (716.4s) and RMSE indicates a minority of large outlier errors pulling the RMSE up.' },
                       ].map(({ label, value, note, color, border, bg, insight }) => (
@@ -2150,9 +2163,9 @@ export default function RunPaceDashboard() {
                         </thead>
                         <tbody className="divide-y divide-slate-800/50">
                           {[
-                            { metric: 'MAE (seconds)', holdout: '716.4s', cv: '682.7 ± 19.5s', gap: '33.7s', gapColor: 'text-emerald-400', insight: 'MAE gap between hold-out (716.4s) and CV (682.7s) is only 33.7s — a 4.9% difference indicating minimal overfitting. The model generalises well to unseen data.' },
-                            { metric: 'R² Score',      holdout: '0.8958', cv: '0.9285 ± 0.0159', gap: '0.0327', gapColor: 'text-emerald-400', insight: 'Hold-out R²=0.8958 vs CV R²=0.9285. The hold-out score is slightly lower because the CV uses all 5,919 balanced samples while hold-out uses only 20% (1,184). Both scores confirm strong predictive power.' },
-                            { metric: 'MAPE',          holdout: '11.52%', cv: '~11.8%',           gap: '~0.3%',  gapColor: 'text-emerald-400', insight: 'MAPE of 11.52% on hold-out is consistent with the CV estimate. For marathon-distance predictions (~4h), this translates to an average error of ~27 minutes — acceptable for race planning.' },
+                            { metric: 'MAE (seconds)', holdout: regMae,   cv: isLive ? '— (live run)' : '682.7 ± 19.5s', gap: isLive ? '—' : '33.7s', gapColor: 'text-emerald-400', insight: `MAE hold-out: ${regMae}` },
+                            { metric: 'R² Score',      holdout: regR2,    cv: isLive ? '— (live run)' : '0.9285 ± 0.0159', gap: isLive ? '—' : '0.0327', gapColor: 'text-emerald-400', insight: `R²=${regR2} — model explains ${(parseFloat(regR2)*100).toFixed(1)}% of variance.` },
+                            { metric: 'MAPE',          holdout: regMape,  cv: isLive ? '— (live run)' : '~11.8%', gap: isLive ? '—' : '~0.3%', gapColor: 'text-emerald-400', insight: `MAPE ${regMape} — rata-rata error prediksi durasi.` },
                           ].map(row => (
                             <tr key={row.metric}
                               onMouseEnter={() => setHoveredInsight(row.insight)}
@@ -2217,7 +2230,8 @@ export default function RunPaceDashboard() {
                 <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
               </div>
             </div>
-          )}
+            );
+          })()}
 
           </div>
         </main>
