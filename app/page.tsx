@@ -1367,9 +1367,9 @@ export default function RunPaceDashboard() {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-8">
-              <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-4">
+                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              </div>
             </div>
           )}
 
@@ -1501,9 +1501,9 @@ export default function RunPaceDashboard() {
                   ))}
                 </div>
               </div>
-            </div>
-            <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-8">
-              <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-4">
+                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              </div>
             </div>
           )}
 
@@ -1578,9 +1578,9 @@ export default function RunPaceDashboard() {
                   ))}
                 </div>
               </div>
-            </div>
-            <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-8">
-              <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-4">
+                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              </div>
             </div>
           )}
 
@@ -1656,9 +1656,9 @@ export default function RunPaceDashboard() {
                   {isTraining && <p className="text-amber-400 animate-pulse">{'> Training in progress...'}</p>}
                 </div>
               )}
-            </div>
-            <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-8">
-              <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-4">
+                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              </div>
             </div>
           )}
 
@@ -2172,9 +2172,9 @@ export default function RunPaceDashboard() {
                   ))}
                 </div>
               </div>
-            </div>
-            <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-8">
-              <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-4">
+                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              </div>
             </div>
           )}
 
