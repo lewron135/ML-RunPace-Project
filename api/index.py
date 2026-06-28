@@ -249,17 +249,10 @@ def _validate_input(data: dict):
 @app.route('/api/health', methods=['GET'])
 def health_check():
     return jsonify({
-        'status'              : 'ok' if _MODELS_OK else 'degraded',
-        'models_loaded'       : _MODELS_OK,
-        'classifier_features' : classifier_feature_names,
-        'regressor_features'  : feature_names,
-        'config_source'       : (
-            'hybrid_config.json'
-            if os.path.exists(os.path.join(MODEL_DIR, 'hybrid_config.json'))
-            else 'fallback'
-        ),
-        'error'               : _LOAD_ERROR,
-        'timestamp'           : datetime.now(timezone.utc).isoformat(),
+        'status'       : 'ok' if _MODELS_OK else 'degraded',
+        'models_loaded': _MODELS_OK,
+        'error'        : 'Model initialization failed' if _LOAD_ERROR else None,
+        'timestamp'    : datetime.now(timezone.utc).isoformat(),
     }), 200 if _MODELS_OK else 503
 
 
@@ -437,6 +430,8 @@ def record_feedback():
 
     # Wrap comment in double-quotes and escape any embedded double-quotes
     # per RFC 4180 so commas and newlines inside comments do not corrupt the CSV.
+    if comment and comment[0] in ('=', '+', '-', '@'):
+        comment = '\t' + comment
     safe_comment = '"' + comment.replace('"', '""') + '"'
     timestamp    = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     row          = f'{timestamp},{rating},{safe_comment}\n'
@@ -450,4 +445,4 @@ def record_feedback():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=os.environ.get('FLASK_DEBUG', 'false') == 'true')
