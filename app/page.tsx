@@ -156,7 +156,7 @@ interface SessionSliderRowProps {
 
 function SessionSliderRow({ index, session, locked, onChange }: SessionSliderRowProps) {
   return (
-    <div className={`bg-white/60 border rounded-xl p-4 transition-opacity duration-300 ${
+    <div className={`bg-slate-950/60 border rounded-xl p-4 transition-opacity duration-300 ${
       locked ? 'border-orange-500/5 opacity-60' : 'border-orange-500/10'
     }`}>
       <div className="flex items-center gap-2 mb-4">
@@ -191,7 +191,7 @@ function SessionSliderRow({ index, session, locked, onChange }: SessionSliderRow
         <div className="space-y-1.5">
           <div className="flex items-baseline justify-between">
             <span className="text-[9px] font-bold uppercase tracking-wider text-slate-700">Avg Heart Rate</span>
-            <span className="text-base font-black tabular-nums text-slate-700 leading-none">
+            <span className="text-base font-black tabular-nums text-slate-200 leading-none">
               {session.heartRate}
               <span className="text-[10px] font-semibold text-slate-600 ml-1">bpm</span>
             </span>
@@ -231,8 +231,8 @@ function StepIndicator({ current }: StepIndicatorProps) {
             <div className="flex items-center gap-2.5 flex-shrink-0">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black border transition-all duration-300 ${
                 done   ? 'bg-teal-500 border-teal-400 text-slate-950' :
-                active ? 'bg-teal-500/15 border-teal-400/60 text-teal-600' :
-                         'bg-slate-50 border-gray-200 text-slate-700'
+                active ? 'bg-teal-500/15 border-teal-400/60 text-teal-300' :
+                         'bg-slate-900 border-slate-800 text-slate-700'
               }`}>
                 {done ? (
                   <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
@@ -241,14 +241,14 @@ function StepIndicator({ current }: StepIndicatorProps) {
                 ) : n}
               </div>
               <span className={`text-[10px] font-bold uppercase tracking-wider hidden sm:block transition-colors duration-300 ${
-                active ? 'text-teal-600' : done ? 'text-slate-500' : 'text-slate-700'
+                active ? 'text-teal-400' : done ? 'text-slate-500' : 'text-slate-700'
               }`}>
                 {label}
               </span>
             </div>
             {i < steps.length - 1 && (
               <div className={`flex-1 h-px mx-3 transition-colors duration-300 ${
-                done ? 'bg-teal-500/40' : 'bg-gray-100'
+                done ? 'bg-teal-500/40' : 'bg-slate-800'
               }`} />
             )}
           </div>
@@ -560,13 +560,13 @@ export default function RunPaceDashboard() {
         }
       `}</style>
 
-      <div className="flex h-screen bg-white text-slate-800 overflow-hidden">
+      <div className="flex h-screen bg-slate-950 text-slate-100 overflow-hidden">
 
         {/* ── Sidebar ─────────────────────────────────────────────────────── */}
-        <aside className="w-60 flex-shrink-0 bg-slate-50/80 border-r border-gray-200 flex flex-col overflow-y-auto">
-          <div className="px-5 py-6 border-b border-gray-200">
+        <aside className="w-60 flex-shrink-0 bg-slate-900/80 border-r border-slate-800 flex flex-col overflow-y-auto">
+          <div className="px-5 py-6 border-b border-slate-800/60">
             <h1 className="text-xl font-black tracking-tight leading-none">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-cyan-600">RunPace</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300">RunPace</span>
               <span className="text-slate-500 ml-2 text-base font-light">AI</span>
             </h1>
             <p className="text-[9px] text-slate-600 mt-1.5 font-medium uppercase tracking-widest">ML Dashboard</p>
@@ -577,7 +577,7 @@ export default function RunPaceDashboard() {
                 <span className="text-[9px] font-mono text-slate-600 uppercase tracking-widest">Progress</span>
                 <span className="text-[9px] font-mono text-slate-500">{unlockedTabs.size}/6</span>
               </div>
-              <div className="h-0.5 bg-gray-100 rounded-full overflow-hidden">
+              <div className="h-0.5 bg-slate-800 rounded-full overflow-hidden">
                 <div className="h-full bg-teal-500/60 rounded-full transition-all duration-500"
                   style={{ width: `${(unlockedTabs.size / 6) * 100}%` }} />
               </div>
@@ -598,20 +598,20 @@ export default function RunPaceDashboard() {
                     active
                       ? 'bg-teal-500/15 border-teal-500/25 cursor-pointer'
                       : unlocked
-                      ? 'border-transparent text-slate-500 hover:text-slate-700 hover:bg-gray-100/60 cursor-pointer'
+                      ? 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 cursor-pointer'
                       : 'border-transparent text-slate-700 cursor-not-allowed opacity-40'
                   }`}>
                   <div className="flex items-center justify-between">
-                    <p className={`text-[11px] font-bold leading-tight ${active ? 'text-teal-600' : ''}`}>{label}</p>
-                    {!unlocked && <span className="text-slate-700 text-[9px]">🔒</span>}
-                    {unlocked && !active && <span className="text-teal-600 text-[9px]">✓</span>}
+                    <p className={`text-[11px] font-bold leading-tight ${active ? 'text-teal-300' : ''}`}>{label}</p>
+                    {!unlocked && <span className="text-slate-600 text-[9px] font-bold">LOCKED</span>}
+                    {unlocked && !active && <span className="text-teal-400 text-[9px] font-bold">DONE</span>}
                   </div>
                   <p className={`text-[9px] leading-tight mt-0.5 ${active ? 'text-teal-600' : 'text-slate-700'}`}>{sub}</p>
                 </button>
               );
             })}
           </nav>
-          <div className="px-5 py-4 border-t border-gray-200">
+          <div className="px-5 py-4 border-t border-slate-800/60">
             <p className="text-[9px] text-slate-700 font-mono">BINUS University · ML Final Project</p>
           </div>
         </aside>
@@ -623,8 +623,8 @@ export default function RunPaceDashboard() {
           {/* ══ TAB 6: PREDICTIVE SIMULATOR (existing wizard — intact) ══════ */}
           {activeTab === 'simulator' && (<div>
             <div className="mb-8">
-              <h2 className="text-2xl font-black text-slate-900 mb-1">Predictive Simulator</h2>
-              <p className="text-xs text-slate-500">Live inference via Flask backend — 3-Step COT Readiness Wizard</p>
+              <h2 className="text-2xl font-black text-white mb-1">Predictive Simulator</h2>
+              <p className="text-xs text-slate-500">Live inference via Flask backend - 3-Step COT Readiness Wizard</p>
             </div>
 
           {/* ── Step Indicator ──────────────────────────────────────────────── */}
@@ -639,16 +639,16 @@ export default function RunPaceDashboard() {
           )}
 
           {/* ══════════════════════════════════════════════════════════════════
-              STEP 1 — PROFIL LATIHAN
+              STEP 1: PROFIL LATIHAN
           ══════════════════════════════════════════════════════════════════ */}
           {step === 1 && (
             <div className="space-y-5">
 
-              <div className="bg-slate-50/50 border border-gray-200 rounded-2xl p-6">
-                <div className="flex items-start justify-between pb-5 mb-5 border-b border-gray-200">
+              <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+                <div className="flex items-start justify-between pb-5 mb-5 border-b border-slate-800">
                   <div>
-                    <h2 className="text-sm font-black uppercase tracking-[0.2em] text-teal-600">
-                      Langkah 1 — Profil Kebugaran
+                    <h2 className="text-sm font-black uppercase tracking-[0.2em] text-teal-400">
+                      Langkah 1: Profil Kebugaran
                     </h2>
                     <p className="text-[11px] text-slate-500 mt-1">
                       Masukkan data 3 sesi latihan terakhirmu. Kasta pelari ditentukan dari profil ini.
@@ -670,7 +670,7 @@ export default function RunPaceDashboard() {
 
                 {/* Live aggregate display */}
                 <div className="mt-5 grid grid-cols-2 gap-3">
-                  <div className="bg-white/60 border border-gray-200 rounded-xl px-4 py-3">
+                  <div className="bg-slate-950/60 border border-slate-800/60 rounded-xl px-4 py-3">
                     <span className="text-[9px] font-bold uppercase tracking-wider text-slate-600 block">
                       Rata-rata Jarak Latihan
                     </span>
@@ -682,11 +682,11 @@ export default function RunPaceDashboard() {
                       Dikirim ke Classifier sebagai training_dist_km
                     </span>
                   </div>
-                  <div className="bg-white/60 border border-gray-200 rounded-xl px-4 py-3">
+                  <div className="bg-slate-950/60 border border-slate-800/60 rounded-xl px-4 py-3">
                     <span className="text-[9px] font-bold uppercase tracking-wider text-slate-600 block">
                       Rata-rata Heart Rate
                     </span>
-                    <span className="text-xl font-black font-mono text-teal-600 tabular-nums leading-tight mt-0.5 block">
+                    <span className="text-xl font-black font-mono text-teal-300 tabular-nums leading-tight mt-0.5 block">
                       {avgHeartRate}
                       <span className="text-[11px] text-slate-600 ml-1">bpm</span>
                     </span>
@@ -701,7 +701,7 @@ export default function RunPaceDashboard() {
               <button
                 type="button"
                 onClick={handleLockProfile}
-                className="w-full py-4 rounded-2xl text-sm font-black uppercase tracking-widest border transition-all duration-150 cursor-pointer bg-teal-500/15 border-teal-400/50 text-teal-600 hover:bg-teal-500/25 hover:border-teal-300/70 active:scale-[0.99]"
+                className="w-full py-4 rounded-2xl text-sm font-black uppercase tracking-widest border transition-all duration-150 cursor-pointer bg-teal-500/15 border-teal-400/50 text-teal-300 hover:bg-teal-500/25 hover:border-teal-300/70 active:scale-[0.99]"
               >
                 Kunci Profil Kebugaran &amp; Lanjut ke Simulasi
               </button>
@@ -710,7 +710,7 @@ export default function RunPaceDashboard() {
           )}
 
           {/* ══════════════════════════════════════════════════════════════════
-              STEP 2 — PARAMETER TARGET LOMBA
+              STEP 2: PARAMETER TARGET LOMBA
           ══════════════════════════════════════════════════════════════════ */}
           {step === 2 && (
             <div className="space-y-5">
@@ -721,25 +721,25 @@ export default function RunPaceDashboard() {
                   <span className="text-[9px] font-bold uppercase tracking-wider text-teal-600 block">
                     Profil Kebugaran Terkunci
                   </span>
-                  <span className="text-[11px] text-slate-500 mt-1 block">
+                  <span className="text-[11px] text-slate-400 mt-1 block">
                     Avg Jarak: <span className="font-black text-orange-400">{avgTrainingDistance.toFixed(1)} km</span>
                     <span className="mx-2 text-slate-700">|</span>
-                    Avg HR: <span className="font-black text-teal-600">{avgHeartRate} bpm</span>
+                    Avg HR: <span className="font-black text-teal-300">{avgHeartRate} bpm</span>
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={handleUnlockProfile}
-                  className="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg border border-gray-200 text-slate-500 hover:border-gray-300 hover:text-slate-500 transition-colors flex-shrink-0 ml-4 cursor-pointer"
+                  className="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg border border-slate-700 text-slate-500 hover:border-slate-600 hover:text-slate-400 transition-colors flex-shrink-0 ml-4 cursor-pointer"
                 >
                   Ubah Profil
                 </button>
               </div>
 
-              <div className="bg-slate-50/50 border border-gray-200 rounded-2xl p-6 space-y-6">
-                <div className="pb-4 border-b border-gray-200">
-                  <h2 className="text-sm font-black uppercase tracking-[0.2em] text-teal-600">
-                    Langkah 2 — Parameter Target Lomba
+              <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 space-y-6">
+                <div className="pb-4 border-b border-slate-800">
+                  <h2 className="text-sm font-black uppercase tracking-[0.2em] text-teal-400">
+                    Langkah 2: Parameter Target Lomba
                   </h2>
                   <p className="text-[11px] text-slate-500 mt-1">
                     Tentukan spesifikasi lomba yang ingin kamu ikuti untuk simulasi COT.
@@ -766,14 +766,14 @@ export default function RunPaceDashboard() {
                           onClick={() => !isLocked && setRaceCategory(cat)}
                           className={`py-4 px-2 rounded-xl border transition-all duration-150 text-center ${
                             isLocked
-                              ? 'bg-white/20 border-gray-200/40 opacity-40 cursor-not-allowed'
+                              ? 'bg-slate-950/20 border-slate-800/40 opacity-40 cursor-not-allowed'
                               : isActive
                                 ? 'bg-teal-500/15 border-teal-400/50 cursor-pointer'
-                                : 'bg-white/60 border-gray-200 hover:border-gray-200 cursor-pointer'
+                                : 'bg-slate-950/60 border-slate-800 hover:border-slate-700 cursor-pointer'
                           }`}
                         >
                           <span className={`text-[10px] font-black uppercase tracking-wide block ${
-                            isLocked ? 'text-slate-700' : isActive ? 'text-teal-600' : 'text-slate-500'
+                            isLocked ? 'text-slate-700' : isActive ? 'text-teal-300' : 'text-slate-500'
                           }`}>
                             {cfg.label}
                           </span>
@@ -804,7 +804,7 @@ export default function RunPaceDashboard() {
                     <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">
                       Estimasi Elevasi Rute Lomba
                     </span>
-                    <span className="text-xl font-black tabular-nums text-slate-700 leading-none">
+                    <span className="text-xl font-black tabular-nums text-slate-200 leading-none">
                       {elevasiM}
                       <span className="text-[11px] font-semibold text-slate-500 ml-1">m</span>
                     </span>
@@ -828,7 +828,7 @@ export default function RunPaceDashboard() {
                       Jam Mulai Lomba
                     </span>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-xl font-black tabular-nums font-mono text-slate-700 leading-none">
+                      <span className="text-xl font-black tabular-nums font-mono text-slate-200 leading-none">
                         {String(jamLari).padStart(2, '0')}:00
                       </span>
                       <span className={`text-[9px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider ${waktuInfo.classes}`}>
@@ -861,8 +861,8 @@ export default function RunPaceDashboard() {
                         onClick={() => setGender(g)}
                         className={`py-3 rounded-xl text-xs font-bold uppercase tracking-widest border transition-all duration-100 cursor-pointer ${
                           gender === g
-                            ? 'bg-teal-500/15 border-teal-400/50 text-teal-600'
-                            : 'bg-white/60 border-gray-200 text-slate-500 hover:border-gray-200 hover:text-slate-500'
+                            ? 'bg-teal-500/15 border-teal-400/50 text-teal-300'
+                            : 'bg-slate-950/60 border-slate-800 text-slate-500 hover:border-slate-700 hover:text-slate-400'
                         }`}
                       >
                         {g === 'M' ? 'Male' : 'Female'}
@@ -872,14 +872,14 @@ export default function RunPaceDashboard() {
                 </div>
 
                 {/* Target Pace — frontend-only, never sent to backend */}
-                <div className="space-y-2 pt-2 border-t border-gray-200">
+                <div className="space-y-2 pt-2 border-t border-slate-800/60">
                   <div className="flex items-baseline justify-between">
                     <div>
                       <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 block">
                         Target Pace Incaran Kamu
                       </span>
                       <span className="text-[9px] text-slate-700 mt-0.5 block">
-                        Hanya untuk komparasi — tidak masuk ke model AI
+                        Hanya untuk komparasi - tidak masuk ke model AI
                       </span>
                     </div>
                     <span className="text-xl font-black tabular-nums font-mono text-violet-400 leading-none flex-shrink-0 ml-4">
@@ -906,7 +906,7 @@ export default function RunPaceDashboard() {
               <button
                 type="button"
                 onClick={handleStartSimulation}
-                className="w-full py-4 rounded-2xl text-sm font-black uppercase tracking-widest border transition-all duration-150 cursor-pointer bg-teal-500/15 border-teal-400/50 text-teal-600 hover:bg-teal-500/25 hover:border-teal-300/70 active:scale-[0.99]"
+                className="w-full py-4 rounded-2xl text-sm font-black uppercase tracking-widest border transition-all duration-150 cursor-pointer bg-teal-500/15 border-teal-400/50 text-teal-300 hover:bg-teal-500/25 hover:border-teal-300/70 active:scale-[0.99]"
               >
                 Mulai Simulasi Kesiapan Maraton
               </button>
@@ -915,25 +915,25 @@ export default function RunPaceDashboard() {
           )}
 
           {/* ══════════════════════════════════════════════════════════════════
-              STEP 3 — LAPORAN KELAYAKAN
+              STEP 3: LAPORAN KELAYAKAN
           ══════════════════════════════════════════════════════════════════ */}
           {step === 3 && (
             <div className="space-y-5">
 
               {/* Input summary strip */}
-              <div className="bg-slate-50 border border-gray-200 rounded-xl px-5 py-3 flex flex-wrap gap-x-6 gap-y-1 items-center justify-between">
+              <div className="bg-slate-900/40 border border-slate-800 rounded-xl px-5 py-3 flex flex-wrap gap-x-6 gap-y-1 items-center justify-between">
                 <div className="flex flex-wrap gap-x-5 gap-y-1">
                   <span className="text-[10px] text-slate-600">
                     Avg Jarak Latihan: <span className="font-black text-orange-400">{avgTrainingDistance.toFixed(1)} km</span>
                   </span>
                   <span className="text-[10px] text-slate-600">
-                    Avg HR: <span className="font-black text-teal-600">{avgHeartRate} bpm</span>
+                    Avg HR: <span className="font-black text-teal-300">{avgHeartRate} bpm</span>
                   </span>
                   <span className="text-[10px] text-slate-600">
-                    Target: <span className="font-black text-slate-600">{raceCfg.label}</span>
+                    Target: <span className="font-black text-slate-300">{raceCfg.label}</span>
                   </span>
                   <span className="text-[10px] text-slate-600">
-                    Elevasi: <span className="font-black text-slate-600">{elevasiM} m</span>
+                    Elevasi: <span className="font-black text-slate-300">{elevasiM} m</span>
                   </span>
                 </div>
                 <div className="flex gap-2">
@@ -942,14 +942,14 @@ export default function RunPaceDashboard() {
                       ? 'text-amber-400 bg-amber-500/5 border-amber-500/20'
                       : hasil
                         ? 'text-teal-500 bg-teal-500/5 border-teal-500/20'
-                        : 'text-slate-600 bg-gray-100 border-gray-200'
+                        : 'text-slate-600 bg-slate-800/50 border-slate-700'
                   }`}>
                     {loading ? 'COMPUTING' : hasil ? 'DONE' : 'PENDING'}
                   </span>
                   <button
                     type="button"
                     onClick={() => setStep(2)}
-                    className="text-[9px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded border border-gray-200 text-slate-500 hover:text-slate-500 hover:border-gray-300 transition-colors cursor-pointer"
+                    className="text-[9px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded border border-slate-700 text-slate-500 hover:text-slate-400 hover:border-slate-600 transition-colors cursor-pointer"
                   >
                     Ubah Parameter
                   </button>
@@ -957,8 +957,8 @@ export default function RunPaceDashboard() {
               </div>
 
               {/* ── Expectation vs Reality ──────────────────────────────────── */}
-              <div className="bg-slate-50 border border-gray-200 rounded-2xl overflow-hidden">
-                <div className="px-5 py-3 border-b border-gray-200 flex items-center justify-between">
+              <div className="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden">
+                <div className="px-5 py-3 border-b border-slate-800 flex items-center justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
                     Expectation vs. Reality Check
                   </span>
@@ -982,7 +982,7 @@ export default function RunPaceDashboard() {
                     </div>
                     <div>
                       <span className="text-[9px] text-slate-600 block mb-0.5">Estimasi Durasi Ekspektasi</span>
-                      <span className={`text-sm font-extrabold leading-snug text-violet-600`}>
+                      <span className={`text-sm font-extrabold leading-snug text-violet-300`}>
                         {formatDurationIndo(expectedDurationSec)}
                       </span>
                     </div>
@@ -1001,7 +1001,7 @@ export default function RunPaceDashboard() {
                     <div>
                       <span className="text-[9px] text-slate-600 block mb-0.5">Rekomendasi Pace AI</span>
                       {hasil ? (
-                        <span className="text-2xl font-black font-mono tabular-nums text-transparent bg-clip-text bg-gradient-to-b from-slate-900 to-slate-500 leading-none">
+                        <span className="text-2xl font-black font-mono tabular-nums text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 leading-none">
                           {hasil.rekomendasi_pace}
                         </span>
                       ) : (
@@ -1015,7 +1015,7 @@ export default function RunPaceDashboard() {
                       <span className={`text-sm font-extrabold leading-snug transition-all duration-200 ${
                         loading ? 'text-amber-700 opacity-40' : hasil ? 'text-amber-400' : 'text-slate-700'
                       }`}>
-                        {hasil ? hasil.estimasi_durasi : loading ? 'Menghitung...' : '—'}
+                        {hasil ? hasil.estimasi_durasi : loading ? 'Menghitung...' : '-'}
                       </span>
                     </div>
                     <div className="pt-1">
@@ -1029,7 +1029,7 @@ export default function RunPaceDashboard() {
 
                 {/* Gap indicator — only when AI result is available */}
                 {hasil && (
-                  <div className={`px-5 py-3 border-t border-gray-200 flex items-center justify-between ${
+                  <div className={`px-5 py-3 border-t border-slate-800 flex items-center justify-between ${
                     paceGapAggressive ? 'bg-amber-500/5' : ''
                   }`}>
                     <span className="text-[9px] font-bold uppercase tracking-wider text-slate-600">
@@ -1040,7 +1040,7 @@ export default function RunPaceDashboard() {
                         ? 'text-amber-400'
                         : targetPace > aiPaceFloat
                           ? 'text-slate-500'
-                          : 'text-teal-600'
+                          : 'text-teal-400'
                     }`}>
                       {paceGapAggressive
                         ? `Target kamu ${formatPace(aiPaceFloat - targetPace)} /km lebih cepat dari AI`
@@ -1055,7 +1055,7 @@ export default function RunPaceDashboard() {
               {/* ── COT Status Banner (three-state) ─────────────────────── */}
               <div className={`rounded-2xl border transition-colors duration-500 overflow-hidden ${
                 loading || !hasil
-                  ? 'bg-slate-50 border-gray-200'
+                  ? 'bg-slate-900/40 border-slate-800'
                   : bannerStatus === 'FULLY_READY'
                     ? 'bg-emerald-700 border-emerald-500'
                     : bannerStatus === 'UNREALISTIC_TARGET'
@@ -1073,7 +1073,7 @@ export default function RunPaceDashboard() {
                     </span>
                     <span className={`text-[9px] font-mono px-2.5 py-0.5 rounded border uppercase tracking-wider flex-shrink-0 ml-3 ${
                       !hasil || loading
-                        ? 'text-slate-600 bg-gray-100 border-gray-200'
+                        ? 'text-slate-600 bg-slate-800/50 border-slate-700'
                         : bannerStatus === 'FULLY_READY'
                           ? 'text-emerald-100 bg-emerald-900/30 border-emerald-400/30'
                           : bannerStatus === 'UNREALISTIC_TARGET'
@@ -1113,15 +1113,15 @@ export default function RunPaceDashboard() {
                   {hasil && !loading && (
                     <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 pt-4 border-t border-white/10">
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-slate-900/45">COT Limit</span>
-                        <span className="text-xs font-black font-mono text-slate-900">{raceCfg.cotLabel}</span>
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-white/45">COT Limit</span>
+                        <span className="text-xs font-black font-mono text-white">{raceCfg.cotLabel}</span>
                       </div>
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-slate-900/45">Prediksi Kamu</span>
-                        <span className="text-xs font-black font-mono text-slate-900">{hasil.estimasi_durasi}</span>
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-white/45">Prediksi Kamu</span>
+                        <span className="text-xs font-black font-mono text-white">{hasil.estimasi_durasi}</span>
                       </div>
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-slate-900/45">
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-white/45">
                           {bannerStatus === 'CRITICAL_RISK' ? 'Over Limit By' : 'Safety Margin'}
                         </span>
                         <span className={`text-xs font-black font-mono ${
@@ -1131,8 +1131,8 @@ export default function RunPaceDashboard() {
                         </span>
                       </div>
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-slate-900/45">Avg HR Input</span>
-                        <span className="text-xs font-black font-mono text-slate-900">{avgHeartRate} bpm</span>
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-white/45">Avg HR Input</span>
+                        <span className="text-xs font-black font-mono text-white">{avgHeartRate} bpm</span>
                       </div>
                     </div>
                   )}
@@ -1142,7 +1142,7 @@ export default function RunPaceDashboard() {
 
               {/* ── 3 Metric Cards ──────────────────────────────────────────── */}
               <div className="grid grid-cols-3 gap-4">
-                <div className={`rounded-2xl p-5 flex flex-col gap-3 border bg-slate-50 transition-colors duration-500 ${kastaCfg ? kastaCfg.border : 'border-gray-200'}`}>
+                <div className={`rounded-2xl p-5 flex flex-col gap-3 border bg-slate-900/40 transition-colors duration-500 ${kastaCfg ? kastaCfg.border : 'border-slate-800'}`}>
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Runner Class</span>
                   <div className="flex-1 flex items-center min-h-[34px]">
                     {hasil && kastaCfg ? (
@@ -1151,24 +1151,24 @@ export default function RunPaceDashboard() {
                         {hasil.tingkat_pengalaman}
                       </span>
                     ) : (
-                      <span className={`text-sm font-bold text-slate-700 ${loading ? 'animate-pulse' : ''}`}>— — —</span>
+                      <span className={`text-sm font-bold text-slate-700 ${loading ? 'animate-pulse' : ''}`}>- - -</span>
                     )}
                   </div>
                   <span className="text-[9px] text-slate-700">K-Means + RF Classifier</span>
                 </div>
 
-                <div className="rounded-2xl p-5 flex flex-col gap-3 border border-teal-400/40 bg-gradient-to-br from-teal-50 to-white relative overflow-hidden">
+                <div className="rounded-2xl p-5 flex flex-col gap-3 border border-teal-500/20 bg-gradient-to-br from-teal-950/50 to-slate-900/40 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-16 h-16 bg-teal-500/5 rounded-full translate-x-5 -translate-y-5 pointer-events-none" />
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-500">Target Pace</span>
                   <div className="flex-1 flex items-center min-h-[34px]">
-                    <span className={`text-2xl font-black font-mono tabular-nums leading-none text-transparent bg-clip-text bg-gradient-to-b from-slate-900 to-slate-500 transition-opacity duration-200 ${loading ? 'opacity-30' : 'opacity-100'}`}>
+                    <span className={`text-2xl font-black font-mono tabular-nums leading-none text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 transition-opacity duration-200 ${loading ? 'opacity-30' : 'opacity-100'}`}>
                       {hasil ? hasil.rekomendasi_pace : '--:--'}
                     </span>
                   </div>
                   <span className="text-[9px] text-slate-600">per km</span>
                 </div>
 
-                <div className="rounded-2xl p-5 flex flex-col gap-3 border border-gray-200 bg-slate-50">
+                <div className="rounded-2xl p-5 flex flex-col gap-3 border border-slate-800 bg-slate-900/40">
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Est. Duration</span>
                   <div className="flex-1 flex items-center min-h-[34px]">
                     <span className={`text-sm font-extrabold leading-tight transition-all duration-200 ${loading ? 'text-amber-700 opacity-40' : 'text-amber-400'}`}>
@@ -1180,7 +1180,7 @@ export default function RunPaceDashboard() {
               </div>
 
               {/* ── Confidence Bars ──────────────────────────────────────────── */}
-              <div className="bg-slate-50 border border-gray-200 rounded-2xl p-6">
+              <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
                 <div className="flex items-center justify-between mb-5">
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Classifier Confidence</span>
                   <span className="text-[10px] font-mono text-slate-700">predict_proba output</span>
@@ -1194,16 +1194,16 @@ export default function RunPaceDashboard() {
                       <div key={kasta}>
                         <div className="flex items-center justify-between mb-1.5">
                           <div className="flex items-center gap-2">
-                            <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isActive ? cfg.dot : 'bg-gray-200'}`} />
+                            <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isActive ? cfg.dot : 'bg-slate-700'}`} />
                             <span className={`text-xs font-bold uppercase tracking-wider ${isActive ? cfg.text : 'text-slate-600'}`}>{kasta}</span>
                           </div>
                           <span className={`text-xs font-mono tabular-nums ${isActive ? cfg.text : 'text-slate-700'}`}>
                             {(prob * 100).toFixed(1)}%
                           </span>
                         </div>
-                        <div className="h-[5px] bg-gray-100/80 rounded-full overflow-hidden">
+                        <div className="h-[5px] bg-slate-800/80 rounded-full overflow-hidden">
                           <div
-                            className={`h-full rounded-full transition-all duration-500 ease-out ${isActive ? cfg.bar : 'bg-gray-200'}`}
+                            className={`h-full rounded-full transition-all duration-500 ease-out ${isActive ? cfg.bar : 'bg-slate-700/50'}`}
                             style={{ width: `${prob * 100}%` }}
                           />
                         </div>
@@ -1212,7 +1212,7 @@ export default function RunPaceDashboard() {
                   })}
                 </div>
                 {loading && (
-                  <p className="text-center text-slate-700 text-[11px] font-mono mt-5 pt-4 border-t border-gray-200/50 animate-pulse">
+                  <p className="text-center text-slate-700 text-[11px] font-mono mt-5 pt-4 border-t border-slate-800/50 animate-pulse">
                     Menghitung prediksi...
                   </p>
                 )}
@@ -1243,12 +1243,12 @@ export default function RunPaceDashboard() {
                       <span className="text-[9px] font-black uppercase tracking-widest text-amber-500 block">
                         Peringatan Pace Agresif
                       </span>
-                      <p className="text-[11px] text-amber-700 leading-relaxed">
+                      <p className="text-[11px] text-amber-300 leading-relaxed">
                         Target pace incaran kamu terlalu agresif dibandingkan kapasitas kardiovaskular
                         hasil latihan kamu (Avg HR {avgHeartRate} bpm). Memaksakan pace ini berisiko
                         memaksa jantung beroperasi di zona anaerobik terlalu dini sebelum kilometer 20.
                         AI menyarankan kamu mengikuti rekomendasi pace aman{' '}
-                        <span className="font-black text-slate-900">{hasil.rekomendasi_pace} /km</span>{' '}
+                        <span className="font-black text-white">{hasil.rekomendasi_pace} /km</span>{' '}
                         demi keselamatan dan performa optimal di hari H.
                       </p>
                     </div>
@@ -1256,7 +1256,7 @@ export default function RunPaceDashboard() {
 
                   {worthinessReady ? (
                     <div className="space-y-3">
-                      <p className="text-[11px] text-slate-600 leading-relaxed">
+                      <p className="text-[11px] text-slate-300 leading-relaxed">
                         Profil latihanmu menunjukkan kesiapan fisik yang cukup untuk menyelesaikan{' '}
                         <span className="font-bold text-emerald-400">{raceCfg.label}</span> dalam
                         batas Cut-Off Time. Berikut rekomendasi manajemen energi pada hari H:
@@ -1268,7 +1268,7 @@ export default function RunPaceDashboard() {
                           `Konsumsi gel energi atau asupan karbohidrat setiap 45 menit sekali, terutama menjelang km 30 untuk menghindari dinding energi (the wall).`,
                           `Pantau Heart Rate agar tidak melebihi zona anaerobik secara konsisten. Target HR lomba sebaiknya berada di kisaran yang serupa dengan rata-rata latihanmu (${avgHeartRate} bpm).`,
                         ].map((tip, i) => (
-                          <li key={i} className="flex items-start gap-2.5 text-[11px] text-slate-500 leading-relaxed">
+                          <li key={i} className="flex items-start gap-2.5 text-[11px] text-slate-400 leading-relaxed">
                             <span className="w-4 h-4 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-[8px] font-black text-emerald-500 flex-shrink-0 mt-0.5">
                               {i + 1}
                             </span>
@@ -1279,7 +1279,7 @@ export default function RunPaceDashboard() {
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      <p className="text-[11px] text-slate-600 leading-relaxed">
+                      <p className="text-[11px] text-slate-300 leading-relaxed">
                         Berdasarkan profil latihan dan prediksi durasi, risiko terkena sweeper bus
                         di <span className="font-bold text-rose-400">{raceCfg.label}</span> cukup
                         tinggi. Berikut langkah perbaikan yang terukur:
@@ -1293,7 +1293,7 @@ export default function RunPaceDashboard() {
                           `Fokus pada latihan Zone 2 (65-75% max HR) untuk membangun base aerobik. Berlari terlalu sering di intensitas tinggi (HR ${avgHeartRate} bpm) menghambat adaptasi aerobik jangka panjang.`,
                           `Lakukan long run sekali per minggu dengan jarak progresif. Targetkan minimal satu long run sejauh 75% dari jarak lomba sebelum hari H.`,
                         ].map((tip, i) => (
-                          <li key={i} className="flex items-start gap-2.5 text-[11px] text-slate-500 leading-relaxed">
+                          <li key={i} className="flex items-start gap-2.5 text-[11px] text-slate-400 leading-relaxed">
                             <span className="w-4 h-4 rounded-full bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-[8px] font-black text-rose-500 flex-shrink-0 mt-0.5">
                               {i + 1}
                             </span>
@@ -1307,27 +1307,27 @@ export default function RunPaceDashboard() {
               )}
 
               {/* ── Debug Panel ──────────────────────────────────────────────── */}
-              <div className={`bg-white border border-gray-200 rounded-2xl p-5 transition-opacity duration-300 ${debug ? 'opacity-100' : 'opacity-35'}`}>
+              <div className={`bg-slate-950 border border-slate-800/60 rounded-2xl p-5 transition-opacity duration-300 ${debug ? 'opacity-100' : 'opacity-35'}`}>
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600">Hybrid Formula Debug</span>
                   <span className="text-[10px] font-mono text-slate-700">Academic transparency panel</span>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                   {[
-                    { key: 'alpha_used',       val: debug ? debug.alpha_used.toFixed(3)               : '—', note: 'physics weight (alpha)' },
-                    { key: 'pace_base',        val: debug ? `${debug.pace_base_used.toFixed(0)} s/km` : '—', note: 'from dataset median'    },
-                    { key: 'physics_detik',    val: debug ? `${debug.physics_detik.toFixed(1)} s`     : '—', note: 'domain logic output'    },
-                    { key: 'rf_raw_detik',     val: debug ? `${debug.rf_raw_detik.toFixed(1)} s`      : '—', note: 'RF model raw output'    },
+                    { key: 'alpha_used',       val: debug ? debug.alpha_used.toFixed(3)               : '-', note: 'physics weight (alpha)' },
+                    { key: 'pace_base',        val: debug ? `${debug.pace_base_used.toFixed(0)} s/km` : '-', note: 'from dataset median'    },
+                    { key: 'physics_detik',    val: debug ? `${debug.physics_detik.toFixed(1)} s`     : '-', note: 'domain logic output'    },
+                    { key: 'rf_raw_detik',     val: debug ? `${debug.rf_raw_detik.toFixed(1)} s`      : '-', note: 'RF model raw output'    },
                   ].map(({ key, val, note }) => (
-                    <div key={key} className="bg-slate-50/50 border border-gray-200/50 rounded-xl p-3">
+                    <div key={key} className="bg-slate-900/50 border border-slate-800/50 rounded-xl p-3">
                       <p className="text-[10px] font-mono text-slate-700 mb-1.5 truncate">{key}</p>
-                      <p className="text-sm font-black font-mono text-slate-700 tabular-nums">{val}</p>
+                      <p className="text-sm font-black font-mono text-slate-200 tabular-nums">{val}</p>
                       <p className="text-[9px] text-slate-700 mt-1.5 leading-tight">{note}</p>
                     </div>
                   ))}
                 </div>
                 {debug && (
-                  <div className="bg-slate-50 rounded-xl px-3 py-2.5 border border-gray-200/40 mb-3">
+                  <div className="bg-slate-900/40 rounded-xl px-3 py-2.5 border border-slate-800/40 mb-3">
                     <p className="text-[10px] font-bold uppercase tracking-wider text-slate-700 mb-1">Classifier Input</p>
                     <p className="text-[10px] font-mono text-slate-600">
                       training_dist = {debug.training_dist_km_used} km
@@ -1336,11 +1336,11 @@ export default function RunPaceDashboard() {
                     </p>
                   </div>
                 )}
-                <div className="bg-slate-50 rounded-xl px-3 py-2.5 border border-gray-200/40">
+                <div className="bg-slate-900/40 rounded-xl px-3 py-2.5 border border-slate-800/40">
                   <p className="text-[11px] font-mono text-slate-500 leading-relaxed break-all">
                     {debug && hasil
                       ? `final = ${debug.alpha_used.toFixed(2)} x physics(${debug.physics_detik.toFixed(1)}s) + ${(1 - debug.alpha_used).toFixed(2)} x rf(${debug.rf_raw_detik.toFixed(1)}s) = ${hasil.total_detik.toFixed(1)}s`
-                      : 'final = alpha x physics_detik + (1 - alpha) x rf_raw_detik — awaiting data'
+                      : 'final = alpha x physics_detik + (1 - alpha) x rf_raw_detik - awaiting data'
                     }
                   </p>
                 </div>
@@ -1351,7 +1351,7 @@ export default function RunPaceDashboard() {
           )}
 
           {/* ── Footer ──────────────────────────────────────────────────────── */}
-          <footer className="mt-12 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <footer className="mt-12 pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-2">
             <p className="text-[11px] text-slate-700 font-mono">Machine Learning Final Project · BINUS University</p>
             <p className="text-[11px] text-slate-700 font-mono">K-Means + RF Classifier + RF Regressor · Hybrid Formula</p>
           </footer>
@@ -1362,35 +1362,29 @@ export default function RunPaceDashboard() {
           {activeTab === 'about' && (
             <div className="space-y-6">
               {/* Hero */}
-              <div className="rounded-2xl bg-gradient-to-br from-teal-500/10 to-sky-500/5 border border-teal-500/20 p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-3xl">🏃</span>
-                  <div>
-                    <h2 className="text-2xl font-black text-slate-900">RunPace AI</h2>
-                    <p className="text-xs text-slate-500">Machine Learning Final Project · BINUS University</p>
-                  </div>
-                </div>
-                <p className="text-sm text-slate-600 leading-relaxed max-w-xl">
-                  Not sure if you can finish a marathon in time? Just enter your recent training data — distances, heart rate, and elevation — and RunPace AI will tell you your runner level, suggest a target pace, and check whether you can beat the race cut-off time.
+              <div className="bg-gradient-to-br from-teal-950/60 to-slate-900/60 border border-teal-500/20 rounded-2xl p-6">
+                <h2 className="text-2xl font-black text-white mb-2">RunPace AI</h2>
+                <p className="text-xs text-teal-400 uppercase tracking-widest font-bold mb-4">Machine Learning Final Project · BINUS University</p>
+                <p className="text-sm text-slate-300 leading-relaxed max-w-xl">
+                  Not sure if you can finish a marathon before the cut-off time? Enter your recent training data and RunPace AI will tell you your runner level, suggest a target pace, and check whether you can beat the official time limit.
                 </p>
               </div>
 
               {/* How it works */}
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">How it works — 4 steps</h3>
+                <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-4">How It Works</h3>
                 <div className="grid grid-cols-2 gap-3">
                   {([
-                    { step: '1', emoji: '📊', title: 'Group Your Training',   color: 'text-violet-600', border: 'border-violet-200 bg-violet-50', desc: 'Your sessions are sorted into clusters — Advanced, Intermediate, or Beginner — using patterns from distance, pace, and heart rate.' },
-                    { step: '2', emoji: '🏷️', title: 'Classify Your Level',    color: 'text-sky-600',    border: 'border-sky-200 bg-sky-50',       desc: 'A machine learning classifier reads your training data and assigns you a runner level with 99%+ accuracy.' },
-                    { step: '3', emoji: '✅', title: 'Safety Check',           color: 'text-amber-600',  border: 'border-amber-200 bg-amber-50',   desc: 'The system checks that your inputs make physical sense — unrealistic heart rates or impossible race-to-training ratios are flagged before prediction.' },
-                    { step: '4', emoji: '⏱️', title: 'Predict Pace & Time',   color: 'text-teal-600',   border: 'border-teal-200 bg-teal-50',     desc: 'A regression model estimates your race duration, blended with a physics formula. You get a recommended pace and a pass/fail on the official cut-off time.' },
-                  ] as { step: string; emoji: string; title: string; color: string; border: string; desc: string }[]).map(({ step, emoji, title, color, border, desc }) => (
+                    { step: '01', title: 'Group Your Sessions',   color: 'text-violet-400', border: 'border-violet-500/20 bg-violet-500/5', desc: 'Your training runs are sorted into clusters based on pace, distance, and heart rate. This tells the system what kind of runner you are.' },
+                    { step: '02', title: 'Classify Your Level',   color: 'text-sky-400',    border: 'border-sky-500/20 bg-sky-500/5',       desc: 'A machine learning classifier reads your training data and assigns you a runner level: Advanced, Intermediate, or Beginner. Accuracy is above 99%.' },
+                    { step: '03', title: 'Safety Check',          color: 'text-amber-400',  border: 'border-amber-500/20 bg-amber-500/5',   desc: 'Before making any prediction, the system checks that your inputs are physically realistic. Unrealistic values are rejected with a clear error message.' },
+                    { step: '04', title: 'Predict Pace and Time', color: 'text-teal-400',   border: 'border-teal-500/20 bg-teal-500/5',     desc: 'A regression model estimates your race duration using your training profile. You get a recommended pace and a pass or fail result against the cut-off time.' },
+                  ] as { step: string; title: string; color: string; border: string; desc: string }[]).map(({ step, title, color, border, desc }) => (
                     <div key={step} className={`flex gap-3 p-4 rounded-xl border ${border}`}>
-                      <div className="flex-shrink-0 text-xl">{emoji}</div>
+                      <span className={`text-[9px] font-black font-mono flex-shrink-0 pt-0.5 ${color}`}>{step}</span>
                       <div>
-                        <p className="text-[9px] font-bold text-slate-400 mb-0.5">STEP {step}</p>
-                        <p className={`text-sm font-bold mb-1 ${color}`}>{title}</p>
-                        <p className="text-xs text-slate-500 leading-relaxed">{desc}</p>
+                        <p className={`text-[11px] font-black uppercase tracking-wider mb-1 ${color}`}>{title}</p>
+                        <p className="text-[11px] text-slate-400 leading-relaxed">{desc}</p>
                       </div>
                     </div>
                   ))}
@@ -1400,20 +1394,20 @@ export default function RunPaceDashboard() {
               {/* Stats */}
               <div className="grid grid-cols-3 gap-4">
                 {([
-                  { label: 'Training Sessions Used', value: '23,201', color: 'text-teal-600',  note: 'after data cleaning'  },
-                  { label: 'Classifier Accuracy',     value: '99%+',   color: 'text-sky-600',   note: 'on held-out test set' },
-                  { label: 'Avg. Pace Error',         value: '~11%',   color: 'text-amber-600', note: 'MAPE on test data'    },
+                  { label: 'Training Sessions Used', value: '23,201', color: 'text-teal-400',  note: 'after data cleaning'  },
+                  { label: 'Classifier Accuracy',     value: '99%+',   color: 'text-sky-400',   note: 'on held-out test set' },
+                  { label: 'Avg. Pace Error',         value: '~11%',   color: 'text-amber-400', note: 'MAPE on test data'    },
                 ] as { label: string; value: string; color: string; note: string }[]).map(({ label, value, color, note }) => (
-                  <div key={label} className="bg-white border border-gray-200 rounded-xl px-4 py-4 text-center shadow-sm">
-                    <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-2">{label}</p>
+                  <div key={label} className="bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-4 text-center">
+                    <p className="text-[9px] font-bold uppercase tracking-wider text-slate-600 mb-2">{label}</p>
                     <p className={`text-2xl font-black tabular-nums ${color}`}>{value}</p>
-                    <p className="text-[9px] text-slate-400 mt-1">{note}</p>
+                    <p className="text-[9px] text-slate-700 mt-1">{note}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="flex justify-end pt-6 border-t border-gray-200 mt-4">
-                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-600 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-4">
+                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next</button>
               </div>
             </div>
           )}
@@ -1422,27 +1416,27 @@ export default function RunPaceDashboard() {
           {activeTab === 'eda' && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-2xl font-black text-slate-900 mb-1">Exploratory Data Analysis</h2>
-                <p className="text-xs text-slate-500">Interactive dataset overview — 42,116 raw GPS activity rows</p>
+                <h2 className="text-2xl font-black text-white mb-1">Exploratory Data Analysis</h2>
+                <p className="text-xs text-slate-500">Interactive dataset overview - 42,116 raw GPS activity rows</p>
               </div>
               <div className="grid grid-cols-3 gap-4">
                 {([
-                  { label: 'Raw Rows',        value: '42,116', color: 'text-slate-700', border: 'border-gray-200',   bg: ''              },
-                  { label: 'Clean Rows',       value: '23,201', color: 'text-teal-600',  border: 'border-teal-500/30', bg: 'bg-teal-500/5' },
+                  { label: 'Raw Rows',        value: '42,116', color: 'text-slate-200', border: 'border-slate-700',   bg: ''              },
+                  { label: 'Clean Rows',       value: '23,201', color: 'text-teal-400',  border: 'border-teal-500/30', bg: 'bg-teal-500/5' },
                   { label: 'Outliers Dropped', value: '18,915', color: 'text-rose-400',  border: 'border-rose-500/30', bg: 'bg-rose-500/5' },
                 ] as { label: string; value: string; color: string; border: string; bg: string }[]).map(({ label, value, color, border, bg }) => (
-                  <div key={label} className={`rounded-xl border px-4 py-4 text-center ${border} ${bg} bg-slate-50`}>
+                  <div key={label} className={`rounded-xl border px-4 py-4 text-center ${border} ${bg} bg-slate-900/40`}>
                     <p className="text-[9px] font-bold uppercase tracking-wider text-slate-600 mb-2">{label}</p>
                     <p className={`text-2xl font-black tabular-nums ${color}`}>{value}</p>
                   </div>
                 ))}
               </div>
-              <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5 space-y-4">
+              <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-4">
                 <div className="flex flex-wrap gap-4">
                   <div className="space-y-1.5 flex-1 min-w-[140px]">
                     <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Feature Variable</label>
                     <select value={edaFeature} onChange={(e) => setEdaFeature(e.target.value as typeof edaFeature)}
-                      className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none cursor-pointer">
+                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none cursor-pointer">
                       <option value="Distance">Distance (km)</option>
                       <option value="ElapsedTime">Elapsed Time (min)</option>
                       <option value="Elevation">Elevation Gain (m)</option>
@@ -1451,7 +1445,7 @@ export default function RunPaceDashboard() {
                   <div className="space-y-1.5 flex-1 min-w-[140px]">
                     <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Chart Type</label>
                     <select value={edaChartType} onChange={(e) => setEdaChartType(e.target.value as typeof edaChartType)}
-                      className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none cursor-pointer">
+                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none cursor-pointer">
                       <option value="Histogram">Histogram</option>
                       <option value="Boxplot">Box Plot</option>
                     </select>
@@ -1483,8 +1477,8 @@ export default function RunPaceDashboard() {
                 })()}
                 {edaChartType === 'Boxplot' && (() => {
                   const BOXES: Record<string, { q1: number; med: number; q3: number; min: number; max: number; unit: string; outlier: string }> = {
-                    Distance:    { q1: 4.2, med: 6.8, q3: 11.5, min: 0.5, max: 42,  unit: 'km',  outlier: '~3,400 km — 34-day GPS tracking error' },
-                    ElapsedTime: { q1: 28,  med: 48,  q3: 82,   min: 5,   max: 360, unit: 'min', outlier: '~48,960 min — 34-day GPS tracking error' },
+                    Distance:    { q1: 4.2, med: 6.8, q3: 11.5, min: 0.5, max: 42,  unit: 'km',  outlier: '~3,400 km - 34-day GPS tracking error' },
+                    ElapsedTime: { q1: 28,  med: 48,  q3: 82,   min: 5,   max: 360, unit: 'min', outlier: '~48,960 min - 34-day GPS tracking error' },
                     Elevation:   { q1: 18,  med: 52,  q3: 128,  min: 0,   max: 650, unit: 'm',   outlier: '940m+ trail outliers (retained as valid)' },
                   };
                   const b = BOXES[edaFeature];
@@ -1498,36 +1492,26 @@ export default function RunPaceDashboard() {
                   const dots = OUTLIER_DOTS[edaFeature];
                   return (
                     <div className="space-y-4 py-2">
-                      {/* Main boxplot */}
                       <div className="relative h-16 flex items-center">
-                        {/* whisker line */}
-                        <div className="absolute h-px bg-slate-300 left-0 right-0" />
-                        {/* min whisker cap */}
-                        <div className="absolute w-px h-5 bg-slate-400" style={{ left: `${toX(b.min)}%` }} />
-                        {/* max whisker cap */}
-                        <div className="absolute w-px h-5 bg-slate-400" style={{ left: `${toX(b.max)}%` }} />
-                        {/* IQR box */}
-                        <div className="absolute h-8 border-2 border-teal-400 bg-teal-500/10 rounded" style={{ left: `${toX(b.q1)}%`, width: `${toX(b.q3) - toX(b.q1)}%` }} />
-                        {/* median */}
-                        <div className="absolute w-0.5 h-8 bg-teal-500 rounded-full" style={{ left: `${toX(b.med)}%` }} />
-                        {/* outlier dots */}
+                        <div className="absolute h-px bg-slate-700 left-0 right-0" />
+                        <div className="absolute w-px h-5 bg-slate-500" style={{ left: `${toX(b.min)}%` }} />
+                        <div className="absolute w-px h-5 bg-slate-500" style={{ left: `${toX(b.max)}%` }} />
+                        <div className="absolute h-8 border-2 border-teal-500/60 bg-teal-500/10 rounded" style={{ left: `${toX(b.q1)}%`, width: `${toX(b.q3) - toX(b.q1)}%` }} />
+                        <div className="absolute w-0.5 h-8 bg-teal-400 rounded-full" style={{ left: `${toX(b.med)}%` }} />
                         {dots.map(({ x, label }) => (
                           <div key={label} className="absolute flex flex-col items-center" style={{ left: `${x}%` }}>
-                            <div className="w-3 h-3 rounded-full bg-rose-500 border-2 border-rose-300 shadow-sm shadow-rose-200" />
-                            <span className="text-[7px] font-bold text-rose-500 mt-1 whitespace-nowrap -translate-x-1/2">{label}</span>
+                            <div className="w-3 h-3 rounded-full bg-rose-500 border-2 border-rose-400/60 shadow shadow-rose-900/40" />
+                            <span className="text-[7px] font-bold text-rose-400 mt-1 whitespace-nowrap -translate-x-1/2">{label}</span>
                           </div>
                         ))}
-                        {/* axis labels */}
                         {([{ v: b.min, lbl: `${b.min}${b.unit}` }, { v: b.q1, lbl: 'Q1' }, { v: b.med, lbl: 'Med' }, { v: b.q3, lbl: 'Q3' }, { v: b.max, lbl: `${b.max}${b.unit}` }] as { v: number; lbl: string }[]).map(({ v, lbl }) => (
                           <span key={lbl} className="absolute text-[8px] font-mono text-slate-500 -translate-x-1/2 top-10" style={{ left: `${toX(v)}%` }}>{lbl}</span>
                         ))}
-                        {/* off-scale dashed line to outlier */}
-                        <div className="absolute h-px bg-rose-300 border-dashed" style={{ left: `${toX(b.max) + 1}%`, width: `${91 - toX(b.max)}%`, borderTop: '1px dashed #fca5a5' }} />
+                        <div className="absolute h-px" style={{ left: `${toX(b.max) + 1}%`, width: `${91 - toX(b.max)}%`, borderTop: '1px dashed rgba(251,113,133,0.4)' }} />
                       </div>
-                      {/* Legend */}
                       <div className="flex items-center gap-4 text-[9px] text-slate-500">
-                        <div className="flex items-center gap-1.5"><div className="w-3 h-3 border-2 border-teal-400 bg-teal-500/10 rounded-sm" /><span>IQR (Q1–Q3)</span></div>
-                        <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-slate-400" /><span>Whiskers (min–max)</span></div>
+                        <div className="flex items-center gap-1.5"><div className="w-3 h-3 border-2 border-teal-500/60 bg-teal-500/10 rounded-sm" /><span>IQR (Q1-Q3)</span></div>
+                        <div className="flex items-center gap-1.5"><div className="w-3 h-px bg-slate-500" /><span>Whiskers (min-max)</span></div>
                         <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-rose-500" /><span>Extreme outlier (off-scale)</span></div>
                       </div>
                     </div>
@@ -1537,16 +1521,16 @@ export default function RunPaceDashboard() {
               {(() => {
                 const DESCS: Record<string, { body: string; insight: string }> = {
                   Distance:    { body: 'Most training activities cluster between 3–10 km, reflecting typical recreational running sessions. The distribution has a heavy right tail. A critical outlier was discovered: a single session recording ~3,400 km caused by a GPS tracker left running for 34 continuous days without pausing.', insight: 'The 34-day GPS tracking error single-handedly accounts for a disproportionate share of the 18,915 rows dropped during cleaning.' },
-                  ElapsedTime: { body: 'Elapsed time mirrors Distance with a near-perfect positive correlation (r=0.97). Bulk of sessions fall between 20–90 minutes. The same 34-day GPS error manifests here as a single row with ~48,960 minutes of elapsed time — the most system-breaking outlier in the dataset.', insight: 'Without removing this row, the mean elapsed time would be inflated by hundreds of minutes, breaking all regression baselines.' },
+                  ElapsedTime: { body: 'Elapsed time mirrors Distance with a near-perfect positive correlation (r=0.97). Bulk of sessions fall between 20–90 minutes. The same 34-day GPS error manifests here as a single row with ~48,960 minutes of elapsed time - the most system-breaking outlier in the dataset.', insight: 'Without removing this row, the mean elapsed time would be inflated by hundreds of minutes, breaking all regression baselines.' },
                   Elevation:   { body: 'Elevation gain is more centrally distributed than distance or time. Most runs occur in flat-to-moderate terrain (0–150m). High-end outliers correspond to legitimate trail running sessions retained after verification.', insight: 'Elevation correlates moderately with pace (r≈0.42) and was engineered into the hybrid physics formula as a direct pace penalty factor.' },
                 };
                 const d = DESCS[edaFeature];
                 return (
-                  <div className="bg-slate-50 border border-gray-200 rounded-xl p-5 space-y-3">
-                    <p className="text-[11px] text-slate-600 leading-relaxed">{d.body}</p>
-                    <div className="flex items-start gap-2 pt-2 border-t border-gray-200">
+                  <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-5 space-y-3">
+                    <p className="text-[11px] text-slate-300 leading-relaxed">{d.body}</p>
+                    <div className="flex items-start gap-2 pt-2 border-t border-slate-800">
                       <span className="text-[9px] font-black uppercase tracking-wider text-amber-500 flex-shrink-0 pt-0.5">KEY INSIGHT</span>
-                      <p className="text-[10px] text-amber-700/80 leading-relaxed">{d.insight}</p>
+                      <p className="text-[10px] text-amber-300/80 leading-relaxed">{d.insight}</p>
                     </div>
                   </div>
                 );
@@ -1563,16 +1547,16 @@ export default function RunPaceDashboard() {
                   ] as { feat: string; r: number; color: string }[]).map(({ feat, r, color }) => (
                     <div key={feat} className="flex items-center gap-3">
                       <span className="text-[10px] text-slate-500 w-44 flex-shrink-0">{feat}</span>
-                      <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
                         <div className={`h-full ${color} rounded-full`} style={{ width: `${r * 100}%` }} />
                       </div>
-                      <span className="text-[10px] font-mono text-slate-500 w-10 text-right">{r.toFixed(2)}</span>
+                      <span className="text-[10px] font-mono text-slate-400 w-10 text-right">{r.toFixed(2)}</span>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="flex justify-end pt-6 border-t border-gray-200 mt-4">
-                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-600 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-4">
+                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
               </div>
             </div>
           )}
@@ -1581,38 +1565,38 @@ export default function RunPaceDashboard() {
           {activeTab === 'preprocessing' && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-2xl font-black text-slate-900 mb-1">Data Preprocessing</h2>
+                <h2 className="text-2xl font-black text-white mb-1">Data Preprocessing</h2>
                 <p className="text-xs text-slate-500">Training configuration &amp; data pipeline setup</p>
               </div>
-              <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5 space-y-3">
+              <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-slate-700">Test Size Split</span>
-                    {ppTestSize === 20 && <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-teal-500/15 border border-teal-500/30 text-teal-600">Recommended</span>}
+                    <span className="text-xs font-bold text-slate-200">Test Size Split</span>
+                    {ppTestSize === 20 && <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-teal-500/15 border border-teal-500/30 text-teal-400">Recommended</span>}
                   </div>
                   <span className="text-xl font-black font-mono text-violet-400">{ppTestSize}%</span>
                 </div>
                 <input type="range" min={10} max={50} step={5} value={ppTestSize} onChange={(e) => setPpTestSize(parseInt(e.target.value))}
                   style={buildTrackStyle(ppTestSize, 10, 50, 'rgb(139 92 246)')}
                   className="slider-pp w-full h-[5px] rounded-full appearance-none cursor-pointer" />
-                <div className="flex justify-between text-[9px] text-slate-700 font-mono select-none"><span>10%</span><span>20% ★</span><span>30%</span><span>40%</span><span>50%</span></div>
+                <div className="flex justify-between text-[9px] text-slate-700 font-mono select-none"><span>10%</span><span>20% </span><span>30%</span><span>40%</span><span>50%</span></div>
                 <p className="text-[10px] text-slate-600 leading-relaxed">20% (1:4 ratio) provides sufficient test coverage on our 23,201-row clean dataset. Splitting is stratified by runner class to preserve balance across both sets.</p>
               </div>
-              <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5 space-y-3">
+              <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-slate-700">Random State Seed</span>
-                    {ppRandomState === 42 && <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-teal-500/15 border border-teal-500/30 text-teal-600">Recommended</span>}
+                    <span className="text-xs font-bold text-slate-200">Random State Seed</span>
+                    {ppRandomState === 42 && <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-teal-500/15 border border-teal-500/30 text-teal-400">Recommended</span>}
                   </div>
                   <span className="text-xl font-black font-mono text-violet-400">{ppRandomState}</span>
                 </div>
                 <input type="range" min={0} max={100} step={1} value={ppRandomState} onChange={(e) => setPpRandomState(parseInt(e.target.value))}
                   style={buildTrackStyle(ppRandomState, 0, 100, 'rgb(139 92 246)')}
                   className="slider-pp w-full h-[5px] rounded-full appearance-none cursor-pointer" />
-                <p className="text-[10px] text-slate-600 leading-relaxed">random_state=42 is the project standard — used consistently across K-Means, RF Classifier, and RF Regressor for full experiment reproducibility.</p>
+                <p className="text-[10px] text-slate-600 leading-relaxed">random_state=42 is the project standard - used consistently across K-Means, RF Classifier, and RF Regressor for full experiment reproducibility.</p>
               </div>
-              <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5 space-y-3">
-                <span className="text-xs font-bold text-slate-700 block">Feature Scaling Method</span>
+              <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-3">
+                <span className="text-xs font-bold text-slate-200 block">Feature Scaling Method</span>
                 <div className="space-y-2">
                   {([
                     { value: 'standard', label: 'StandardScaler',    rec: 'Recommended for K-Means Clustering'   },
@@ -1620,9 +1604,9 @@ export default function RunPaceDashboard() {
                     { value: 'minmax',   label: 'MinMaxScaler',      rec: null                                   },
                     { value: 'robust',   label: 'RobustScaler',      rec: null                                   },
                   ] as { value: string; label: string; rec: string | null }[]).map(({ value, label, rec }) => (
-                    <label key={value} className={`flex items-center gap-3 px-4 py-3 rounded-xl border cursor-pointer transition-all ${ppScalingMethod === value ? 'bg-violet-500/10 border-violet-500/30' : 'border-gray-200 hover:border-gray-200'}`}>
+                    <label key={value} className={`flex items-center gap-3 px-4 py-3 rounded-xl border cursor-pointer transition-all ${ppScalingMethod === value ? 'bg-violet-500/10 border-violet-500/30' : 'border-slate-800 hover:border-slate-700'}`}>
                       <input type="radio" name="scaling" value={value} checked={ppScalingMethod === value} onChange={() => setPpScalingMethod(value)} className="accent-violet-500 flex-shrink-0" />
-                      <span className="text-[11px] font-bold text-slate-600">{label}</span>
+                      <span className="text-[11px] font-bold text-slate-300">{label}</span>
                       {rec && <span className="ml-1 text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-teal-500/10 border border-teal-500/25 text-teal-500">{rec}</span>}
                     </label>
                   ))}
@@ -1630,26 +1614,26 @@ export default function RunPaceDashboard() {
               </div>
               <div className="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-5 space-y-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-amber-700">Class Balancing — Adaptive Downsampling</span>
+                  <span className="text-xs font-bold text-amber-300">Class Balancing: Adaptive Downsampling</span>
                   <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-400">Applied</span>
                 </div>
-                <p className="text-[11px] text-slate-500 leading-relaxed">After K-Means labeling, severe class imbalance was detected (Advanced: 892, Intermediate: 11,445, Beginner: 10,864). Adaptive random downsampling capped each class at <span className="font-black text-amber-700">1,973 rows</span> — resulting in a perfectly balanced 5,919-sample training set.</p>
+                <p className="text-[11px] text-slate-400 leading-relaxed">After K-Means labeling, severe class imbalance was detected (Advanced: 892, Intermediate: 11,445, Beginner: 10,864). Adaptive random downsampling capped each class at <span className="font-black text-amber-300">1,973 rows</span> - resulting in a perfectly balanced 5,919-sample training set.</p>
                 <div className="grid grid-cols-3 gap-3">
                   {([
                     { label: 'Advanced',     before: '892',    after: '892',   color: 'text-rose-400'    },
                     { label: 'Intermediate', before: '11,445', after: '1,973', color: 'text-sky-400'     },
                     { label: 'Beginner',     before: '10,864', after: '1,973', color: 'text-emerald-400' },
                   ] as { label: string; before: string; after: string; color: string }[]).map(({ label, before, after, color }) => (
-                    <div key={label} className="bg-slate-50 border border-gray-200 rounded-xl p-3 text-center">
+                    <div key={label} className="bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-center">
                       <p className={`text-[10px] font-black ${color} mb-1`}>{label}</p>
-                      <p className="text-[9px] text-slate-600">Before: <span className="text-slate-500 font-mono">{before}</span></p>
-                      <p className="text-[9px] text-slate-600">After: <span className="text-teal-600 font-mono">{after}</span></p>
+                      <p className="text-[9px] text-slate-600">Before: <span className="text-slate-400 font-mono">{before}</span></p>
+                      <p className="text-[9px] text-slate-600">After: <span className="text-teal-400 font-mono">{after}</span></p>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="flex justify-end pt-6 border-t border-gray-200 mt-4">
-                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-600 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-4">
+                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
               </div>
             </div>
           )}
@@ -1658,82 +1642,82 @@ export default function RunPaceDashboard() {
           {activeTab === 'training' && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-2xl font-black text-slate-900 mb-1">Model Configuration &amp; Training</h2>
+                <h2 className="text-2xl font-black text-white mb-1">Model Configuration &amp; Training</h2>
                 <p className="text-xs text-slate-500">Algorithm selection and hyperparameter tuning</p>
               </div>
-              <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5 space-y-3">
-                <span className="text-xs font-bold text-slate-700 block">Stage 2 — Classifier Algorithm</span>
+              <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-3">
+                <span className="text-xs font-bold text-slate-200 block">Stage 2: Classifier Algorithm</span>
                 <select value={classifierAlgo} onChange={(e) => setClassifierAlgo(e.target.value)}
-                  className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-xs text-slate-700 focus:outline-none focus:border-teal-500/50 cursor-pointer">
-                  <option value="rf">Random Forest ★ (Recommended)</option>
+                  className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-teal-500/50 cursor-pointer">
+                  <option value="rf">Random Forest (Recommended)</option>
                   <option value="svm">Support Vector Machine (SVM)</option>
                   <option value="knn">K-Nearest Neighbors (KNN)</option>
                 </select>
                 <p className="text-[10px] leading-relaxed">
                   {classifierAlgo === 'rf'  && <span className="text-teal-600">Random Forest achieved 99.16% accuracy. Ensemble nature handles mixed numeric features without requiring feature scaling.</span>}
-                  {classifierAlgo === 'svm' && <span className="text-amber-600">SVM requires StandardScaler and is sensitive to kernel choice — typically underperforms RF on high-dimensional mixed-feature datasets.</span>}
+                  {classifierAlgo === 'svm' && <span className="text-amber-600">SVM requires StandardScaler and is sensitive to kernel choice - typically underperforms RF on high-dimensional mixed-feature datasets.</span>}
                   {classifierAlgo === 'knn' && <span className="text-amber-600">KNN is memory-intensive at inference and sensitive to irrelevant features. Accuracy drops on imbalanced datasets without preprocessing.</span>}
                 </p>
               </div>
-              <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5 space-y-3">
-                <span className="text-xs font-bold text-slate-700 block">Stage 4 — Regressor Algorithm</span>
+              <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-3">
+                <span className="text-xs font-bold text-slate-200 block">Stage 4: Regressor Algorithm</span>
                 <select value={regressorAlgo} onChange={(e) => setRegressorAlgo(e.target.value)}
-                  className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-xs text-slate-700 focus:outline-none focus:border-teal-500/50 cursor-pointer">
-                  <option value="rf">Random Forest ★ (Recommended)</option>
+                  className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-teal-500/50 cursor-pointer">
+                  <option value="rf">Random Forest (Recommended)</option>
                   <option value="lr">Linear Regression</option>
                   <option value="gb">Gradient Boosting</option>
                 </select>
                 <p className="text-[10px] leading-relaxed">
                   {regressorAlgo === 'rf' && <span className="text-teal-600">RF Regressor achieves MAPE 11.52% and CV R²=0.9285. Captures non-linear relationships between training volume and race duration.</span>}
-                  {regressorAlgo === 'lr' && <span className="text-amber-600">Linear Regression assumes linearity — a poor fit for the exponential fatigue curve in marathon running. Expected R² &lt; 0.70.</span>}
+                  {regressorAlgo === 'lr' && <span className="text-amber-600">Linear Regression assumes linearity - a poor fit for the exponential fatigue curve in marathon running. Expected R² &lt; 0.70.</span>}
                   {regressorAlgo === 'gb' && <span className="text-amber-600">Gradient Boosting is a strong alternative but requires more hyperparameter tuning to avoid overfitting on our moderately-sized dataset.</span>}
                 </p>
               </div>
-              <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5 space-y-3">
+              <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-slate-700">n_estimators</span>
-                    {nEstimators === 100 && <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-teal-500/15 border border-teal-500/30 text-teal-600">Default &amp; Recommended</span>}
+                    <span className="text-xs font-bold text-slate-200">n_estimators</span>
+                    {nEstimators === 100 && <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-teal-500/15 border border-teal-500/30 text-teal-400">Default &amp; Recommended</span>}
                   </div>
-                  <span className="text-xl font-black font-mono text-teal-600">{nEstimators}</span>
+                  <span className="text-xl font-black font-mono text-teal-400">{nEstimators}</span>
                 </div>
                 <input type="range" min={10} max={500} step={10} value={nEstimators} onChange={(e) => setNEstimators(parseInt(e.target.value))}
                   style={buildTrackStyle(nEstimators, 10, 500)}
                   className="slider-custom w-full h-[5px] rounded-full appearance-none cursor-pointer" />
-                <div className="flex justify-between text-[9px] text-slate-700 font-mono select-none"><span>10</span><span>100 ★</span><span>250</span><span>500</span></div>
+                <div className="flex justify-between text-[9px] text-slate-700 font-mono select-none"><span>10</span><span>100 </span><span>250</span><span>500</span></div>
                 <p className="text-[10px] text-slate-600 leading-relaxed">100 trees provides the best accuracy/speed trade-off. Above 200 shows diminishing returns with significantly increased training time.</p>
               </div>
               <button type="button" onClick={handleTrainModel} disabled={isTraining}
-                className="w-full py-4 rounded-2xl text-sm font-black uppercase tracking-widest border transition-all duration-150 cursor-pointer disabled:opacity-50 bg-teal-500/15 border-teal-400/50 text-teal-600 hover:bg-teal-500/25 hover:border-teal-300/70 active:scale-[0.99]">
+                className="w-full py-4 rounded-2xl text-sm font-black uppercase tracking-widest border transition-all duration-150 cursor-pointer disabled:opacity-50 bg-teal-500/15 border-teal-400/50 text-teal-300 hover:bg-teal-500/25 hover:border-teal-300/70 active:scale-[0.99]">
                 {isTraining ? 'Training Model...' : trainDone ? 'Retrain Model' : 'Train Model'}
               </button>
               {(isTraining || trainDone || trainError) && (
-                <div className="bg-white border border-gray-200 rounded-2xl p-5 font-mono text-[11px] space-y-1.5">
-                  <p className="text-slate-600 mb-3">{'— Training Log ——————————————————————'}</p>
+                <div className="bg-slate-950 border border-slate-800/60 rounded-2xl p-5 font-mono text-[11px] space-y-1.5">
+                  <p className="text-slate-600 mb-3">{'Training Log'}</p>
                   {isTraining && (
                     <>
-                      <p className="text-slate-500">{`> Loading dataset & cleaning...`}</p>
-                      <p className="text-slate-500">{`> Running K-Means clustering (k=3)...`}</p>
-                      <p className="text-slate-500">{`> Balancing classes & applying ${ppScalingMethod} scaling...`}</p>
-                      <p className="text-slate-500">{`> Splitting data (test=${ppTestSize}%, random_state=${ppRandomState})...`}</p>
+                      <p className="text-slate-400">{`> Loading dataset & cleaning...`}</p>
+                      <p className="text-slate-400">{`> Running K-Means clustering (k=3)...`}</p>
+                      <p className="text-slate-400">{`> Balancing classes & applying ${ppScalingMethod} scaling...`}</p>
+                      <p className="text-slate-400">{`> Splitting data (test=${ppTestSize}%, random_state=${ppRandomState})...`}</p>
                       <p className="text-amber-400 animate-pulse">{`> Training ${classifierAlgo.toUpperCase()} Classifier...`}</p>
                     </>
                   )}
                   {trainError && <p className="text-red-400">{`> Error: ${trainError}`}</p>}
                   {trainDone && trainMetrics && (
                     <>
-                      <p className="text-slate-500">{`> Dataset loaded & cleaned ✓`}</p>
-                      <p className="text-violet-400">{`> K-Means (k=3) converged ✓`}</p>
+                      <p className="text-slate-400">{`> Dataset loaded & cleaned`}</p>
+                      <p className="text-violet-400">{`> K-Means (k=3) converged`}</p>
                       <p className="text-amber-400">{`> Balanced: ${trainMetrics.config.train_samples.toLocaleString()} rows | test=${trainMetrics.classifier.test_size}% | seed=${trainMetrics.config.random_state}`}</p>
-                      <p className="text-teal-600">{`> ${trainMetrics.classifier.algo.toUpperCase()} Classifier Accuracy: ${trainMetrics.classifier.accuracy}% ✓`}</p>
-                      <p className="text-teal-600">{`> ${trainMetrics.regressor.algo.toUpperCase()} Regressor — MAE: ${trainMetrics.regressor.mae_minutes} min | MAPE: ${trainMetrics.regressor.mape}% | R²: ${trainMetrics.regressor.r2} ✓`}</p>
-                      <p className="text-emerald-400">{`> Model aktif di memory — prediksi menggunakan model baru ✓`}</p>
+                      <p className="text-teal-400">{`> ${trainMetrics.classifier.algo.toUpperCase()} Classifier Accuracy: ${trainMetrics.classifier.accuracy}%`}</p>
+                      <p className="text-teal-400">{`> ${trainMetrics.regressor.algo.toUpperCase()} Regressor - MAE: ${trainMetrics.regressor.mae_minutes} min | MAPE: ${trainMetrics.regressor.mape}% | R²: ${trainMetrics.regressor.r2}`}</p>
+                      <p className="text-emerald-400">{`> Model aktif di memory - prediksi menggunakan model baru`}</p>
                     </>
                   )}
                 </div>
               )}
-              <div className="flex justify-end pt-6 border-t border-gray-200 mt-4">
-                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-600 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-4">
+                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
               </div>
             </div>
           )}
@@ -1751,24 +1735,24 @@ export default function RunPaceDashboard() {
             <div className="space-y-6">
               <div className="flex items-start justify-between">
                 <div>
-                  <h2 className="text-2xl font-black text-slate-900 mb-1">Model Evaluation</h2>
-                  <p className="text-xs text-slate-500">{isLive ? `Live metrics — ${clfLabel} · seed=${trainMetrics!.config.random_state} · test=${trainMetrics!.classifier.test_size}%` : 'Interactive evaluation dashboard — real training outputs from data_pipeline.ipynb'}</p>
+                  <h2 className="text-2xl font-black text-white mb-1">Model Evaluation</h2>
+                  <p className="text-xs text-slate-500">{isLive ? `Live metrics - ${clfLabel} · seed=${trainMetrics!.config.random_state} · test=${trainMetrics!.classifier.test_size}%` : 'Interactive evaluation dashboard - real training outputs from data_pipeline.ipynb'}</p>
                 </div>
                 {isLive && (
-                  <span className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg bg-teal-500/15 border border-teal-500/30 text-teal-600 flex-shrink-0">Live</span>
+                  <span className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg bg-teal-500/15 border border-teal-500/30 text-teal-400 flex-shrink-0">Live</span>
                 )}
               </div>
 
               {/* ── Sub-navigation ────────────────────────────────────────────── */}
               <div className="flex gap-2 flex-wrap">
                 {([
-                  { id: 'clustering'  as const, label: 'K-Means Clustering',    color: 'bg-violet-500/15 border-violet-400/50 text-violet-600' },
-                  { id: 'classifier'  as const, label: clfLabel,    color: 'bg-sky-500/15 border-sky-400/50 text-sky-700'    },
-                  { id: 'regressor'   as const, label: regLabel,    color: 'bg-teal-500/15 border-teal-400/50 text-teal-600' },
+                  { id: 'clustering'  as const, label: 'K-Means Clustering',    color: 'bg-violet-500/15 border-violet-400/50 text-violet-300' },
+                  { id: 'classifier'  as const, label: clfLabel,    color: 'bg-sky-500/15 border-sky-400/50 text-sky-300'    },
+                  { id: 'regressor'   as const, label: regLabel,    color: 'bg-teal-500/15 border-teal-400/50 text-teal-300' },
                 ]).map(({ id, label, color }) => (
                   <button key={id} type="button"
                     onClick={() => { setEvalView(id); setHoveredInsight('Hover over any chart element to see a detailed analytical insight here.'); }}
-                    className={`px-4 py-2 rounded-lg text-xs font-bold border transition-all cursor-pointer ${evalView === id ? color : 'border-gray-200 text-slate-500 hover:border-gray-300 hover:text-slate-500'}`}>
+                    className={`px-4 py-2 rounded-lg text-xs font-bold border transition-all cursor-pointer ${evalView === id ? color : 'border-slate-700 text-slate-500 hover:border-slate-600 hover:text-slate-400'}`}>
                     {label}
                   </button>
                 ))}
@@ -1799,10 +1783,10 @@ export default function RunPaceDashboard() {
                     <div className="grid grid-cols-3 gap-4">
                       {[
                         { label: 'Optimal K',    value: '3',      color: 'text-violet-400', border: 'border-violet-500/20', bg: 'bg-violet-500/5' },
-                        { label: 'Total Sessions',value: '23,201', color: 'text-slate-700',  border: 'border-gray-200',     bg: ''               },
+                        { label: 'Total Sessions',value: '23,201', color: 'text-slate-200',  border: 'border-slate-700',     bg: ''               },
                         { label: 'Inertia @ K=3', value: '34,134', color: 'text-amber-400', border: 'border-amber-500/20',  bg: 'bg-amber-500/5'  },
                       ].map(({ label, value, color, border, bg }) => (
-                        <div key={label} className={`rounded-xl border px-4 py-4 text-center ${border} ${bg} bg-slate-50`}>
+                        <div key={label} className={`rounded-xl border px-4 py-4 text-center ${border} ${bg} bg-slate-900/40`}>
                           <p className="text-[9px] font-bold uppercase tracking-wider text-slate-600 mb-2">{label}</p>
                           <p className={`text-2xl font-black tabular-nums ${color}`}>{value}</p>
                         </div>
@@ -1810,8 +1794,8 @@ export default function RunPaceDashboard() {
                     </div>
 
                     {/* Elbow Curve SVG */}
-                    <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Elbow Method Curve — K-Means Inertia vs Number of Clusters</p>
+                    <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Elbow Method Curve - K-Means Inertia vs Number of Clusters</p>
                       <p className="text-[9px] text-slate-700 mb-4">Hover over each data point to inspect inertia value. The &ldquo;elbow&rdquo; at K=3 justifies cluster count selection.</p>
                       <div className="overflow-x-auto">
                         <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ minWidth: 320 }}>
@@ -1836,7 +1820,7 @@ export default function RunPaceDashboard() {
                           <text x={W / 2} y={H - 1} textAnchor="middle" fontSize="7" fill="#334155">Number of Clusters (K)</text>
                           {/* Elbow annotation */}
                           <line x1={toX(3)} y1={PAD.t} x2={toX(3)} y2={H - PAD.b} stroke="rgba(167,139,250,0.35)" strokeWidth="1" strokeDasharray="3,3" />
-                          <text x={toX(3) + 4} y={PAD.t + 10} fontSize="7" fill="#a78bfa" fontWeight="bold">K=3 ★</text>
+                          <text x={toX(3) + 4} y={PAD.t + 10} fontSize="7" fill="#a78bfa" fontWeight="bold">K=3 </text>
                           {/* Curve */}
                           <polyline
                             points={INERTIA.map((v, i) => `${toX(K_RANGE[i])},${toY(v)}`).join(' ')}
@@ -1848,7 +1832,7 @@ export default function RunPaceDashboard() {
                             const isElbow = k === 3;
                             return (
                               <g key={k}
-                                onMouseEnter={() => setHoveredInsight(`K=${k} → Inertia: ${v.toLocaleString()} — ${isElbow ? 'OPTIMAL ELBOW POINT. The rate of inertia decrease slows significantly after K=3, confirming 3 clusters is the most parsimonious choice. Adding K=4 reduces inertia by only 6,285 vs the 11,931 gained from K=2→3.' : k < 3 ? `Under-clustering: too few groups to capture meaningful performance differences between runner profiles.` : `Over-fitting risk: additional clusters produce diminishing inertia gains (${Math.round(INERTIA[i-1] - v).toLocaleString()} reduction from K=${k-1}→${k}), creating arbitrary splits within natural runner categories.`}`)}
+                                onMouseEnter={() => setHoveredInsight(`K=${k} → Inertia: ${v.toLocaleString()} - ${isElbow ? 'OPTIMAL ELBOW POINT. The rate of inertia decrease slows significantly after K=3, confirming 3 clusters is the most parsimonious choice. Adding K=4 reduces inertia by only 6,285 vs the 11,931 gained from K=2→3.' : k < 3 ? `Under-clustering: too few groups to capture meaningful performance differences between runner profiles.` : `Over-fitting risk: additional clusters produce diminishing inertia gains (${Math.round(INERTIA[i-1] - v).toLocaleString()} reduction from K=${k-1}→${k}), creating arbitrary splits within natural runner categories.`}`)}
                                 onMouseLeave={() => setHoveredInsight('Hover over any chart element to see a detailed analytical insight here.')}
                                 style={{ cursor: 'pointer' }}
                               >
@@ -1862,8 +1846,8 @@ export default function RunPaceDashboard() {
                     </div>
 
                     {/* Cluster Scatter (Distance vs HR) */}
-                    <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Cluster Centroids — Distance vs Heart Rate (Leakage-Free Features)</p>
+                    <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Cluster Centroids - Distance vs Heart Rate (Leakage-Free Features)</p>
                       <p className="text-[9px] text-slate-700 mb-4">Hover each cluster bubble to see centroid statistics and profile breakdown.</p>
                       <div className="overflow-x-auto">
                         <svg viewBox="0 0 280 160" className="w-full" style={{ minWidth: 260 }}>
@@ -1890,7 +1874,7 @@ export default function RunPaceDashboard() {
                             const r = 8 + (c.pct / 100) * 22;
                             return (
                               <g key={c.name}
-                                onMouseEnter={() => setHoveredInsight(`${c.name} Cluster — ${c.size.toLocaleString()} sessions (${c.pct}% of dataset). Centroid: avg distance ${(c.dist/1000).toFixed(1)} km, elevation ${c.elev} m, heart rate ${c.hr} bpm. ${c.name === 'Advanced' ? 'Long-distance, high-elevation sessions with controlled low HR — hallmark of elite aerobic efficiency.' : c.name === 'Beginner' ? 'Short distances, flat terrain, moderately elevated HR — typical recreational runner building base fitness.' : 'Mid-range distance, moderate elevation, notably highest HR — consistent with runners pushing their current aerobic threshold.'}`)}
+                                onMouseEnter={() => setHoveredInsight(`${c.name} Cluster - ${c.size.toLocaleString()} sessions (${c.pct}% of dataset). Centroid: avg distance ${(c.dist/1000).toFixed(1)} km, elevation ${c.elev} m, heart rate ${c.hr} bpm. ${c.name === 'Advanced' ? 'Long-distance, high-elevation sessions with controlled low HR - hallmark of elite aerobic efficiency.' : c.name === 'Beginner' ? 'Short distances, flat terrain, moderately elevated HR - typical recreational runner building base fitness.' : 'Mid-range distance, moderate elevation, notably highest HR - consistent with runners pushing their current aerobic threshold.'}`)}
                                 onMouseLeave={() => setHoveredInsight('Hover over any chart element to see a detailed analytical insight here.')}
                                 style={{ cursor: 'pointer' }}>
                                 <circle cx={cx} cy={cy} r={r} fill={c.fill} stroke={c.stroke} strokeWidth="1.5" />
@@ -1905,12 +1889,12 @@ export default function RunPaceDashboard() {
                       <div className="grid grid-cols-3 gap-2 mt-3">
                         {CLUSTERS.map(c => (
                           <div key={c.name}
-                            onMouseEnter={() => setHoveredInsight(`${c.name} Cluster — ${c.size.toLocaleString()} sessions (${c.pct}% of dataset). Centroid: avg distance ${(c.dist/1000).toFixed(1)} km, elevation ${c.elev} m, heart rate ${c.hr} bpm. ${c.name === 'Advanced' ? 'Long-distance, high-elevation sessions with controlled low HR — hallmark of elite aerobic efficiency.' : c.name === 'Beginner' ? 'Short distances, flat terrain, moderately elevated HR — typical recreational runner building base fitness.' : 'Mid-range distance, moderate elevation, notably highest HR — consistent with runners pushing their current aerobic threshold.'}`)}
+                            onMouseEnter={() => setHoveredInsight(`${c.name} Cluster - ${c.size.toLocaleString()} sessions (${c.pct}% of dataset). Centroid: avg distance ${(c.dist/1000).toFixed(1)} km, elevation ${c.elev} m, heart rate ${c.hr} bpm. ${c.name === 'Advanced' ? 'Long-distance, high-elevation sessions with controlled low HR - hallmark of elite aerobic efficiency.' : c.name === 'Beginner' ? 'Short distances, flat terrain, moderately elevated HR - typical recreational runner building base fitness.' : 'Mid-range distance, moderate elevation, notably highest HR - consistent with runners pushing their current aerobic threshold.'}`)}
                             onMouseLeave={() => setHoveredInsight('Hover over any chart element to see a detailed analytical insight here.')}
                             style={{ borderColor: c.stroke + '50', backgroundColor: c.fill, cursor: 'pointer' }}
                             className="rounded-xl border p-2.5 text-center transition-all hover:scale-[1.02]">
                             <p className="text-[9px] font-black uppercase" style={{ color: c.stroke }}>{c.name}</p>
-                            <p className="text-base font-black tabular-nums text-slate-700 mt-0.5">{c.size.toLocaleString()}</p>
+                            <p className="text-base font-black tabular-nums text-slate-200 mt-0.5">{c.size.toLocaleString()}</p>
                             <p className="text-[8px] text-slate-600 mt-0.5">{c.pct}% of sessions</p>
                           </div>
                         ))}
@@ -1920,7 +1904,7 @@ export default function RunPaceDashboard() {
                     {/* Clustering analytical note */}
                     <div className="bg-violet-500/5 border border-violet-500/20 rounded-xl p-4">
                       <p className="text-[9px] font-black uppercase tracking-widest text-violet-400 mb-1.5">Why Clustering Enables Classification</p>
-                      <p className="text-[10px] text-slate-500 leading-relaxed">K-Means creates data-driven runner profile labels (Beginner / Intermediate / Advanced) from the raw unlabelled GPS dataset — without any subjective human annotation. These cluster labels then become the supervised target variable that trains the Random Forest Classifier in Stage 2. The sequential design means the classification model learns real performance boundaries derived from 23,201 sessions rather than arbitrary thresholds.</p>
+                      <p className="text-[10px] text-slate-400 leading-relaxed">K-Means creates data-driven runner profile labels (Beginner / Intermediate / Advanced) from the raw unlabelled GPS dataset - without any subjective human annotation. These cluster labels then become the supervised target variable that trains the Random Forest Classifier in Stage 2. The sequential design means the classification model learns real performance boundaries derived from 23,201 sessions rather than arbitrary thresholds.</p>
                     </div>
                   </div>
                 );
@@ -1946,8 +1930,8 @@ export default function RunPaceDashboard() {
                 const getCellInsight = (r: number, c: number, val: number): string => {
                   const rowLabel = LABELS[r]; const colLabel = LABELS[c];
                   if (r === c) return `True ${rowLabel} → ${val} samples correctly classified as ${rowLabel}. This is a True Positive for the ${rowLabel} class. Recall = ${val}/${[394,395,395][r]} = ${r===0?'100.0':r===1?'99.5':'98.2'}%.`;
-                  if (val === 0) return `${rowLabel} predicted as ${colLabel}: 0 misclassifications. Perfect separation between these two classes — the cluster boundary is clean.`;
-                  return `False Positive: ${val} actual ${rowLabel} sessions were predicted as ${colLabel}. ${r===1&&c===0?'2 Beginner sessions were classified as Advanced — these are outlier sessions with unusually long distances near the Beginner/Advanced boundary.':r===2&&c===0?'5 Intermediate sessions misclassified as Advanced — these likely had high elevation gain mimicking elite profiles.':'2 Intermediate sessions misclassified as Beginner — sessions with below-average distance and HR.'}`;
+                  if (val === 0) return `${rowLabel} predicted as ${colLabel}: 0 misclassifications. Perfect separation between these two classes - the cluster boundary is clean.`;
+                  return `False Positive: ${val} actual ${rowLabel} sessions were predicted as ${colLabel}. ${r===1&&c===0?'2 Beginner sessions were classified as Advanced - these are outlier sessions with unusually long distances near the Beginner/Advanced boundary.':r===2&&c===0?'5 Intermediate sessions misclassified as Advanced - these likely had high elevation gain mimicking elite profiles.':'2 Intermediate sessions misclassified as Beginner - sessions with below-average distance and HR.'}`;
                 };
 
                 return (
@@ -1955,12 +1939,12 @@ export default function RunPaceDashboard() {
                     {/* Metric summary cards */}
                     <div className="grid grid-cols-4 gap-3">
                       {[
-                        { label: 'Hold-out Accuracy', value: clfAcc,    color: 'text-teal-600',   border: 'border-teal-500/20',   bg: 'bg-teal-500/5'   },
+                        { label: 'Hold-out Accuracy', value: clfAcc,    color: 'text-teal-400',   border: 'border-teal-500/20',   bg: 'bg-teal-500/5'   },
                         { label: isLive ? 'Baseline CV (RF)' : 'CV Accuracy (5-Fold)', value: '98.82%', color: 'text-sky-400', border: 'border-sky-500/20', bg: 'bg-sky-500/5' },
                         { label: 'CV F1 Weighted',     value: '0.9882', color: 'text-violet-400', border: 'border-violet-500/20', bg: 'bg-violet-500/5' },
                         { label: 'CV Stability (±std)', value: '±0.16%', color: 'text-emerald-400',border: 'border-emerald-500/20',bg: 'bg-emerald-500/5'},
                       ].map(({ label, value, color, border, bg }) => (
-                        <div key={label} className={`rounded-xl border px-3 py-3 text-center ${border} ${bg} bg-slate-50`}>
+                        <div key={label} className={`rounded-xl border px-3 py-3 text-center ${border} ${bg} bg-slate-900/40`}>
                           <p className="text-[8px] font-bold uppercase tracking-wider text-slate-600 mb-1.5">{label}</p>
                           <p className={`text-lg font-black tabular-nums ${color}`}>{value}</p>
                         </div>
@@ -1968,8 +1952,8 @@ export default function RunPaceDashboard() {
                     </div>
 
                     {/* Confusion Matrix */}
-                    <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Confusion Matrix — RF Classifier (Hold-out Test Set · n=1,184)</p>
+                    <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Confusion Matrix - RF Classifier (Hold-out Test Set · n=1,184)</p>
                       <p className="text-[9px] text-slate-700 mb-4">Hover each cell to see the classification breakdown. Green intensity = sample count. Diagonal = correct predictions.</p>
                       <div className="space-y-1">
                         {/* Column headers */}
@@ -2001,7 +1985,7 @@ export default function RunPaceDashboard() {
                                   onMouseLeave={() => setHoveredInsight('Hover over any chart element to see a detailed analytical insight here.')}
                                   style={{ backgroundColor: bgColor, borderColor, cursor: 'pointer' }}
                                   className="flex-1 h-14 rounded-lg border flex flex-col items-center justify-center transition-all hover:scale-[1.04] hover:z-10 relative select-none">
-                                  <span className={`text-lg font-black tabular-nums ${isDiag ? 'text-emerald-700' : val > 0 ? 'text-rose-600' : 'text-slate-700'}`}>{val}</span>
+                                  <span className={`text-lg font-black tabular-nums ${isDiag ? 'text-emerald-300' : val > 0 ? 'text-rose-300' : 'text-slate-700'}`}>{val}</span>
                                   <span className="text-[7px] font-mono text-slate-700">{((val / maxVal) * 100).toFixed(0)}%</span>
                                 </div>
                               );
@@ -2009,19 +1993,19 @@ export default function RunPaceDashboard() {
                           </div>
                         ))}
                       </div>
-                      <div className="flex gap-4 mt-3 pt-3 border-t border-gray-200">
+                      <div className="flex gap-4 mt-3 pt-3 border-t border-slate-800">
                         <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded bg-emerald-500/40 border border-emerald-500/50" /><span className="text-[9px] text-slate-500">True Positive (diagonal)</span></div>
                         <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded bg-rose-500/30 border border-rose-500/40" /><span className="text-[9px] text-slate-500">False Positive</span></div>
-                        <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded bg-slate-50 border border-gray-200" /><span className="text-[9px] text-slate-500">Zero errors</span></div>
+                        <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded bg-slate-900 border border-slate-700" /><span className="text-[9px] text-slate-500">Zero errors</span></div>
                       </div>
                     </div>
 
                     {/* Classification Report Table */}
-                    <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-4">Classification Report — Per-Class Precision / Recall / F1 (from notebook [A2])</p>
+                    <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-4">Classification Report - Per-Class Precision / Recall / F1 (from notebook [A2])</p>
                       <table className="w-full text-xs border-collapse">
                         <thead>
-                          <tr className="border-b border-gray-200">
+                          <tr className="border-b border-slate-800">
                             <th className="text-left pb-2 text-[9px] font-bold uppercase tracking-wider text-slate-600 pr-4">Class</th>
                             <th className="text-center pb-2 text-[9px] font-bold uppercase tracking-wider text-slate-600 px-2">Precision</th>
                             <th className="text-center pb-2 text-[9px] font-bold uppercase tracking-wider text-slate-600 px-2">Recall</th>
@@ -2029,13 +2013,13 @@ export default function RunPaceDashboard() {
                             <th className="text-center pb-2 text-[9px] font-bold uppercase tracking-wider text-slate-600 px-2">Support</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-200">
+                        <tbody className="divide-y divide-slate-800/50">
                           {REPORT.map(row => (
                             <tr key={row.klass}
-                              onMouseEnter={() => setHoveredInsight(`${row.klass} class — Precision: ${row.p.toFixed(2)} (of all sessions predicted as ${row.klass}, ${(row.p*100).toFixed(0)}% were actually ${row.klass}). Recall: ${row.r.toFixed(2)} (of all actual ${row.klass} sessions, ${(row.r*100).toFixed(0)}% were correctly found). F1: ${row.f1.toFixed(2)} (harmonic mean). Support: ${row.sup} test samples.`)}
+                              onMouseEnter={() => setHoveredInsight(`${row.klass} class - Precision: ${row.p.toFixed(2)} (of all sessions predicted as ${row.klass}, ${(row.p*100).toFixed(0)}% were actually ${row.klass}). Recall: ${row.r.toFixed(2)} (of all actual ${row.klass} sessions, ${(row.r*100).toFixed(0)}% were correctly found). F1: ${row.f1.toFixed(2)} (harmonic mean). Support: ${row.sup} test samples.`)}
                               onMouseLeave={() => setHoveredInsight('Hover over any chart element to see a detailed analytical insight here.')}
                               style={{ cursor: 'pointer' }}
-                              className="hover:bg-gray-100 transition-colors">
+                              className="hover:bg-slate-800/30 transition-colors">
                               <td className="py-2.5 pr-4">
                                 <div className="flex items-center gap-1.5">
                                   <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${row.dot}`} />
@@ -2043,31 +2027,31 @@ export default function RunPaceDashboard() {
                                 </div>
                               </td>
                               <td className="text-center py-2.5 px-2">
-                                <div className="relative h-1 bg-gray-100 rounded-full w-full mb-1 overflow-hidden">
+                                <div className="relative h-1 bg-slate-800 rounded-full w-full mb-1 overflow-hidden">
                                   <div className="h-full rounded-full" style={{ width: `${row.p * 100}%`, backgroundColor: row.color }} />
                                 </div>
-                                <span className="font-black font-mono text-slate-700 text-[11px]">{row.p.toFixed(2)}</span>
+                                <span className="font-black font-mono text-slate-200 text-[11px]">{row.p.toFixed(2)}</span>
                               </td>
                               <td className="text-center py-2.5 px-2">
-                                <div className="relative h-1 bg-gray-100 rounded-full w-full mb-1 overflow-hidden">
+                                <div className="relative h-1 bg-slate-800 rounded-full w-full mb-1 overflow-hidden">
                                   <div className="h-full rounded-full" style={{ width: `${row.r * 100}%`, backgroundColor: row.color }} />
                                 </div>
-                                <span className="font-black font-mono text-slate-700 text-[11px]">{row.r.toFixed(2)}</span>
+                                <span className="font-black font-mono text-slate-200 text-[11px]">{row.r.toFixed(2)}</span>
                               </td>
                               <td className="text-center py-2.5 px-2">
-                                <div className="relative h-1 bg-gray-100 rounded-full w-full mb-1 overflow-hidden">
+                                <div className="relative h-1 bg-slate-800 rounded-full w-full mb-1 overflow-hidden">
                                   <div className="h-full rounded-full" style={{ width: `${row.f1 * 100}%`, backgroundColor: row.color }} />
                                 </div>
-                                <span className="font-black font-mono text-slate-700 text-[11px]">{row.f1.toFixed(2)}</span>
+                                <span className="font-black font-mono text-slate-200 text-[11px]">{row.f1.toFixed(2)}</span>
                               </td>
-                              <td className="text-center py-2.5 px-2 font-mono text-slate-500 text-[11px]">{row.sup}</td>
+                              <td className="text-center py-2.5 px-2 font-mono text-slate-400 text-[11px]">{row.sup}</td>
                             </tr>
                           ))}
-                          <tr className="border-t border-gray-200">
-                            <td className="py-2.5 pr-4 text-[10px] font-bold text-slate-500">Accuracy</td>
+                          <tr className="border-t border-slate-700">
+                            <td className="py-2.5 pr-4 text-[10px] font-bold text-slate-400">Accuracy</td>
                             <td colSpan={2} />
-                            <td className="text-center py-2.5 px-2 font-black font-mono text-teal-600 text-[12px]">0.99</td>
-                            <td className="text-center py-2.5 px-2 font-mono text-slate-500 text-[11px]">1,184</td>
+                            <td className="text-center py-2.5 px-2 font-black font-mono text-teal-300 text-[12px]">0.99</td>
+                            <td className="text-center py-2.5 px-2 font-mono text-slate-400 text-[11px]">1,184</td>
                           </tr>
                           <tr>
                             <td className="py-1.5 pr-4 text-[9px] text-slate-600">Macro avg</td>
@@ -2101,10 +2085,10 @@ export default function RunPaceDashboard() {
                   const lo = EDGES[i]; const hi = EDGES[i + 1]; const count = COUNTS[i];
                   const sign = lo < 0 ? 'under-predicted' : 'over-predicted';
                   const pct = ((count / 1184) * 100).toFixed(1);
-                  if (lo === -1000 && hi === 0) return `Error bin [-1000s, 0s]: ${count} samples (${pct}%) — model slightly under-predicted duration (actual was longer than predicted). This is the largest negative-error bin, representing predictions that are up to ~16.7 minutes too optimistic. Common for advanced runners on race day where fatigue is underestimated.`;
-                  if (lo === 0 && hi === 1000) return `Error bin [0s, +1000s]: ${count} samples (${pct}%) — model slightly over-predicted duration (actual was faster than predicted). These ${count} samples had better-than-expected performance. Together with the [-1k,0] bin, these two bins account for ${((515+438)/1184*100).toFixed(0)}% of all test predictions — confirming tight central accuracy.`;
+                  if (lo === -1000 && hi === 0) return `Error bin [-1000s, 0s]: ${count} samples (${pct}%) - model slightly under-predicted duration (actual was longer than predicted). This is the largest negative-error bin, representing predictions that are up to ~16.7 minutes too optimistic. Common for advanced runners on race day where fatigue is underestimated.`;
+                  if (lo === 0 && hi === 1000) return `Error bin [0s, +1000s]: ${count} samples (${pct}%) - model slightly over-predicted duration (actual was faster than predicted). These ${count} samples had better-than-expected performance. Together with the [-1k,0] bin, these two bins account for ${((515+438)/1184*100).toFixed(0)}% of all test predictions - confirming tight central accuracy.`;
                   const absMid = Math.abs(lo + hi) / 2;
-                  return `Error bin [${lo}s, ${hi}s]: ${count} samples (${pct}%) — model ${sign} duration by ${(absMid/60).toFixed(1)} min on average for these ${count} outlier samples. ${Math.abs(lo) >= 2000 ? `Large errors (>${(Math.abs(lo)/60).toFixed(0)} min) affect only ${pct}% of samples — rare edge cases likely involving unusual route/weather conditions not captured in training features.` : `Moderate errors within ±${(Math.abs(hi)/60).toFixed(0)} min.`}`;
+                  return `Error bin [${lo}s, ${hi}s]: ${count} samples (${pct}%) - model ${sign} duration by ${(absMid/60).toFixed(1)} min on average for these ${count} outlier samples. ${Math.abs(lo) >= 2000 ? `Large errors (>${(Math.abs(lo)/60).toFixed(0)} min) affect only ${pct}% of samples - rare edge cases likely involving unusual route/weather conditions not captured in training features.` : `Moderate errors within ±${(Math.abs(hi)/60).toFixed(0)} min.`}`;
                 };
 
                 return (
@@ -2114,16 +2098,16 @@ export default function RunPaceDashboard() {
                       {[
                         { label: 'MAPE',         value: regMape,   note: 'Mean Abs % Error',    color: 'text-amber-400', border: 'border-amber-500/20', bg: 'bg-amber-500/5',
                           insight: `MAPE of ${regMape} means the hybrid model's duration estimate is within ~${regMape} of actual race time on average.` },
-                        { label: isLive ? 'Baseline CV R²' : 'CV R² Score', value: regR2, note: isLive ? 'Hold-out (live)' : '5-Fold Cross-Val', color: 'text-teal-600', border: 'border-teal-500/20', bg: 'bg-teal-500/5',
-                          insight: `R²=${regR2} — the model explains ${(parseFloat(regR2)*100).toFixed(1)}% of variance in race duration.` },
+                        { label: isLive ? 'Baseline CV R²' : 'CV R² Score', value: regR2, note: isLive ? 'Hold-out (live)' : '5-Fold Cross-Val', color: 'text-teal-400', border: 'border-teal-500/20', bg: 'bg-teal-500/5',
+                          insight: `R²=${regR2} - the model explains ${(parseFloat(regR2)*100).toFixed(1)}% of variance in race duration.` },
                         { label: 'RMSE',         value: '1477.6s', note: '≈ 24.6 min',           color: 'text-sky-400',   border: 'border-sky-500/20',   bg: 'bg-sky-500/5',
-                          insight: 'RMSE of 1477.6 seconds (≈24.6 min) — penalises large errors more than MAE. The gap between MAE (716.4s) and RMSE indicates a minority of large outlier errors pulling the RMSE up.' },
+                          insight: 'RMSE of 1477.6 seconds (≈24.6 min) - penalises large errors more than MAE. The gap between MAE (716.4s) and RMSE indicates a minority of large outlier errors pulling the RMSE up.' },
                       ].map(({ label, value, note, color, border, bg, insight }) => (
                         <div key={label}
                           onMouseEnter={() => setHoveredInsight(insight)}
                           onMouseLeave={() => setHoveredInsight('Hover over any chart element to see a detailed analytical insight here.')}
                           style={{ cursor: 'pointer' }}
-                          className={`rounded-xl border px-4 py-4 text-center ${border} ${bg} bg-slate-50 transition-all hover:scale-[1.02]`}>
+                          className={`rounded-xl border px-4 py-4 text-center ${border} ${bg} bg-slate-900/40 transition-all hover:scale-[1.02]`}>
                           <p className="text-[9px] font-bold uppercase tracking-wider text-slate-600 mb-2">{label}</p>
                           <p className={`text-2xl font-black tabular-nums ${color}`}>{value}</p>
                           <p className="text-[8px] text-slate-700 mt-1">{note}</p>
@@ -2132,8 +2116,8 @@ export default function RunPaceDashboard() {
                     </div>
 
                     {/* Residuals Distribution Histogram */}
-                    <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Residuals Error Distribution — RF Regressor (Hold-out · n=1,184)</p>
+                    <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Residuals Error Distribution - RF Regressor (Hold-out · n=1,184)</p>
                       <p className="text-[9px] text-slate-700 mb-4">Hover each bar to inspect frequency and error interpretation. Negative = under-predict, Positive = over-predict.</p>
                       <div className="overflow-x-auto">
                         <svg viewBox={`0 0 ${W2} ${H2}`} className="w-full" style={{ minWidth: 320 }}>
@@ -2185,31 +2169,31 @@ export default function RunPaceDashboard() {
                     </div>
 
                     {/* Cross-Validation table */}
-                    <div className="bg-slate-50 border border-gray-200 rounded-2xl p-5">
+                    <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
                       <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-4">5-Fold Cross-Validation vs Hold-out Comparison (from notebook [B1]/[B2])</p>
                       <table className="w-full text-xs border-collapse">
                         <thead>
-                          <tr className="border-b border-gray-200">
+                          <tr className="border-b border-slate-800">
                             <th className="text-left pb-2 text-[9px] font-bold uppercase tracking-wider text-slate-600">Metric</th>
                             <th className="text-center pb-2 text-[9px] font-bold uppercase tracking-wider text-slate-600">Hold-out Test</th>
                             <th className="text-center pb-2 text-[9px] font-bold uppercase tracking-wider text-slate-600">5-Fold CV (mean ± std)</th>
                             <th className="text-center pb-2 text-[9px] font-bold uppercase tracking-wider text-slate-600">Gap</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-200">
+                        <tbody className="divide-y divide-slate-800/50">
                           {[
-                            { metric: 'MAE (seconds)', holdout: regMae,   cv: isLive ? '— (live run)' : '682.7 ± 19.5s', gap: isLive ? '—' : '33.7s', gapColor: 'text-emerald-400', insight: `MAE hold-out: ${regMae}` },
-                            { metric: 'R² Score',      holdout: regR2,    cv: isLive ? '— (live run)' : '0.9285 ± 0.0159', gap: isLive ? '—' : '0.0327', gapColor: 'text-emerald-400', insight: `R²=${regR2} — model explains ${(parseFloat(regR2)*100).toFixed(1)}% of variance.` },
-                            { metric: 'MAPE',          holdout: regMape,  cv: isLive ? '— (live run)' : '~11.8%', gap: isLive ? '—' : '~0.3%', gapColor: 'text-emerald-400', insight: `MAPE ${regMape} — rata-rata error prediksi durasi.` },
+                            { metric: 'MAE (seconds)', holdout: regMae,   cv: isLive ? 'n/a' : '682.7 ± 19.5s', gap: isLive ? 'n/a' : '33.7s', gapColor: 'text-emerald-400', insight: `MAE hold-out: ${regMae}` },
+                            { metric: 'R² Score',      holdout: regR2,    cv: isLive ? 'n/a' : '0.9285 ± 0.0159', gap: isLive ? 'n/a' : '0.0327', gapColor: 'text-emerald-400', insight: `R²=${regR2} - model explains ${(parseFloat(regR2)*100).toFixed(1)}% of variance.` },
+                            { metric: 'MAPE',          holdout: regMape,  cv: isLive ? 'n/a' : '~11.8%', gap: isLive ? 'n/a' : '~0.3%', gapColor: 'text-emerald-400', insight: `MAPE ${regMape} - rata-rata error prediksi durasi.` },
                           ].map(row => (
                             <tr key={row.metric}
                               onMouseEnter={() => setHoveredInsight(row.insight)}
                               onMouseLeave={() => setHoveredInsight('Hover over any chart element to see a detailed analytical insight here.')}
                               style={{ cursor: 'pointer' }}
-                              className="hover:bg-gray-100 transition-colors">
-                              <td className="py-2.5 pr-4 text-[11px] font-bold text-slate-600">{row.metric}</td>
+                              className="hover:bg-slate-800/30 transition-colors">
+                              <td className="py-2.5 pr-4 text-[11px] font-bold text-slate-300">{row.metric}</td>
                               <td className="text-center py-2.5 px-2 font-mono text-amber-400 text-[11px] font-black">{row.holdout}</td>
-                              <td className="text-center py-2.5 px-2 font-mono text-teal-600 text-[11px] font-black">{row.cv}</td>
+                              <td className="text-center py-2.5 px-2 font-mono text-teal-400 text-[11px] font-black">{row.cv}</td>
                               <td className={`text-center py-2.5 px-2 font-mono text-[11px] font-black ${row.gapColor}`}>{row.gap}</td>
                             </tr>
                           ))}
@@ -2219,9 +2203,9 @@ export default function RunPaceDashboard() {
 
                     {/* Hybrid ablation summary */}
                     <div className="bg-teal-500/5 border border-teal-500/20 rounded-xl p-4"
-                      onMouseEnter={() => setHoveredInsight('Hybrid formula: final_duration = 0.05 × physics_estimate + 0.95 × RF_prediction. The alpha=0.05 weight was determined by a sweep over α∈[0.0,1.0] in steps of 0.05, minimising MAE on the test set. Pure RF (α=0) gives MAE=716.4s. Optimal α=0.05 gives MAE=715.0s — a marginal but scientifically validated improvement. The physics component anchors predictions to biomechanical pace baselines derived from the dataset medians.')}>
-                      <p className="text-[9px] font-black uppercase tracking-widest text-teal-600 mb-1.5">Hybrid Formula — Ablation-Validated Weights (hover for details)</p>
-                      <p className="text-[11px] font-mono text-slate-600">final = <span className="text-violet-600">0.05</span> × physics_estimate + <span className="text-teal-600">0.95</span> × RF_raw_prediction</p>
+                      onMouseEnter={() => setHoveredInsight('Hybrid formula: final_duration = 0.05 × physics_estimate + 0.95 × RF_prediction. The alpha=0.05 weight was determined by a sweep over α∈[0.0,1.0] in steps of 0.05, minimising MAE on the test set. Pure RF (α=0) gives MAE=716.4s. Optimal α=0.05 gives MAE=715.0s - a marginal but scientifically validated improvement. The physics component anchors predictions to biomechanical pace baselines derived from the dataset medians.')}>
+                      <p className="text-[9px] font-black uppercase tracking-widest text-teal-400 mb-1.5">Hybrid Formula - Ablation-Validated Weights (hover for details)</p>
+                      <p className="text-[11px] font-mono text-slate-300">final = <span className="text-violet-300">0.05</span> × physics_estimate + <span className="text-teal-300">0.95</span> × RF_raw_prediction</p>
                       <p className="text-[9px] text-slate-500 mt-1.5">α=0.05 determined by data sweep (not arbitrary). Pace base: Advanced=499s/km (8:19), Beginner=343s/km (5:42), Intermediate=327s/km (5:27)</p>
                     </div>
                   </div>
@@ -2229,40 +2213,40 @@ export default function RunPaceDashboard() {
               })()}
 
               {/* ── Live Insight Panel ───────────────────────────────────────── */}
-              <div className="bg-white border border-gray-200 rounded-2xl p-4 transition-all duration-200">
+              <div className="bg-slate-950 border border-slate-700/50 rounded-2xl p-4 transition-all duration-200">
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0 mt-1 animate-pulse" />
                   <div>
                     <p className="text-[9px] font-black uppercase tracking-widest text-teal-500 mb-1">Live Insight Panel</p>
-                    <p className="text-[11px] text-slate-500 leading-relaxed min-h-[32px] transition-all duration-150">{hoveredInsight}</p>
+                    <p className="text-[11px] text-slate-400 leading-relaxed min-h-[32px] transition-all duration-150">{hoveredInsight}</p>
                   </div>
                 </div>
               </div>
 
               {/* ── 5-Layer Sanity Gate ────────────────────────────────────────── */}
               <div>
-                <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-3">5-Layer Sanity Gate — Pipeline Innovation</h3>
+                <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-3">5-Layer Sanity Gate - Pipeline Innovation</h3>
                 <div className="space-y-2">
                   {([
                     { layer: 'L1', title: 'Heart Rate Bounds',       rule: '40 ≤ heart_rate ≤ 220 bpm',          desc: 'Rejects physiologically impossible HR values before model inference. Catches sensor errors and data entry mistakes.',                                               color: 'border-rose-500/20 bg-rose-500/5',    badge: 'text-rose-400'   },
                     { layer: 'L2', title: 'Training Volume Gate',    rule: 'avg_dist ≥ race_dist × 0.35',        desc: 'Prevents the model predicting race times for runners whose training volume is dangerously insufficient relative to the target distance.',                         color: 'border-amber-500/20 bg-amber-500/5',  badge: 'text-amber-400'  },
                     { layer: 'L3', title: 'Race Distance Validity',  rule: 'jarak_km ∈ {10.0, 21.1, 42.2}',    desc: 'Only officially supported race distances accepted. Arbitrary distances would trigger out-of-distribution predictions from the regressor.',                          color: 'border-sky-500/20 bg-sky-500/5',      badge: 'text-sky-400'    },
-                    { layer: 'L4', title: 'Pace Plausibility',       rule: '3:00 ≤ predicted_pace ≤ 15:00 /km', desc: 'Post-model output validation. Rejects physiologically impossible pace predictions — catches edge-case model extrapolation failures.',                             color: 'border-violet-500/20 bg-violet-500/5',badge: 'text-violet-400' },
-                    { layer: 'L5', title: 'COT Feasibility Verdict', rule: 'total_detik vs. race_cot_detik',    desc: 'Final binary verdict: READY (predicted duration < COT) or HIGH RISK (≥ COT). Drives the Simulator tab banner and AI coaching advice.',                          color: 'border-teal-500/20 bg-teal-500/5',    badge: 'text-teal-600'   },
+                    { layer: 'L4', title: 'Pace Plausibility',       rule: '3:00 ≤ predicted_pace ≤ 15:00 /km', desc: 'Post-model output validation. Rejects physiologically impossible pace predictions - catches edge-case model extrapolation failures.',                             color: 'border-violet-500/20 bg-violet-500/5',badge: 'text-violet-400' },
+                    { layer: 'L5', title: 'COT Feasibility Verdict', rule: 'total_detik vs. race_cot_detik',    desc: 'Final binary verdict: READY (predicted duration < COT) or HIGH RISK (≥ COT). Drives the Simulator tab banner and AI coaching advice.',                          color: 'border-teal-500/20 bg-teal-500/5',    badge: 'text-teal-400'   },
                   ] as { layer: string; title: string; rule: string; desc: string; color: string; badge: string }[]).map(({ layer, title, rule, desc, color, badge }) => (
                     <div key={layer} className={`flex gap-4 p-4 rounded-xl border ${color}`}>
                       <span className={`text-[10px] font-black font-mono flex-shrink-0 w-5 ${badge}`}>{layer}</span>
                       <div className="space-y-1 min-w-0">
-                        <p className="text-[11px] font-bold text-slate-700">{title}</p>
-                        <p className="text-[10px] font-mono text-slate-500 bg-white/60 px-2 py-0.5 rounded inline-block">{rule}</p>
+                        <p className="text-[11px] font-bold text-slate-200">{title}</p>
+                        <p className="text-[10px] font-mono text-slate-500 bg-slate-950/60 px-2 py-0.5 rounded inline-block">{rule}</p>
                         <p className="text-[10px] text-slate-500 leading-relaxed">{desc}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="flex justify-end pt-6 border-t border-gray-200 mt-4">
-                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-600 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
+              <div className="flex justify-end pt-6 border-t border-slate-800/60 mt-4">
+                <button type="button" onClick={goNext} className="px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest border border-teal-500/30 bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 hover:border-teal-400/50 transition-all duration-150 cursor-pointer">Next →</button>
               </div>
             </div>
             );
